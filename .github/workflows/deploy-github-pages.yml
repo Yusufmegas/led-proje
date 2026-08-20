@@ -38,6 +38,24 @@ jobs:
         run: npm run typecheck
       - name: Build static export
         run: npm run build
+      - name: Add static RSC aliases
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+          const root = path.resolve('out');
+          function walk(dir) {
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              const full = path.join(dir, entry.name);
+              if (entry.isDirectory()) walk(full);
+              if (entry.isFile() && entry.name === '__PAGE__.txt' && path.basename(dir).startsWith('__next.')) {
+                const target = path.join(path.dirname(dir), `${path.basename(dir)}.${entry.name}`);
+                if (!fs.existsSync(target)) fs.copyFileSync(full, target);
+              }
+            }
+          }
+          walk(root);
+          NODE
       - name: Add .nojekyll
         run: touch out/.nojekyll
       - name: Configure Pages
