@@ -1,23 +1,17 @@
 import type { NextConfig } from "next";
 
+const isGithubPagesProject = process.env.GITHUB_PAGES_PROJECT === "true";
+const githubPagesBasePath = isGithubPagesProject ? "/led-proje" : "";
+
 const nextConfig: NextConfig = {
+  output: "export",
+  trailingSlash: true,
+  basePath: githubPagesBasePath,
+  assetPrefix: githubPagesBasePath ? `${githubPagesBasePath}/` : undefined,
   poweredByHeader: false,
   agentRules: false,
   turbopack: { root: process.cwd() },
-  images: { formats: ["image/avif", "image/webp"] },
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" }
-        ]
-      }
-    ];
-  }
+  images: { unoptimized: true, formats: ["image/avif", "image/webp"] }
 };
 
 export default nextConfig;
