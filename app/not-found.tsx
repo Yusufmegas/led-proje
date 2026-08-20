@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function NotFound() { return <section className="section"><div className="container"><span className="eyebrow">404</span><h1>Aradığınız sayfa bulunamadı.</h1><p className="lead">URL değişmiş veya sayfa henüz yayına alınmamış olabilir.</p><div className="button-row"><Link className="button" href="/">Ana Sayfaya Dön</Link><Link className="button button-outline" href="/iletisim">İletişime Geç</Link></div></div></section>; }
