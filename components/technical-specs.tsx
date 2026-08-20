@@ -1,0 +1,2 @@
+import type { SpecRow } from "@/lib/types";
+export function TechnicalSpecs({ rows }: { rows: SpecRow[] }) { return <div className="spec-wrap"><table className="spec-table"><thead><tr><th>Seçenek / özellik</th><th>Doğrulanmış değer</th><th>Proje notu</th></tr></thead><tbody>{rows.map((row) => <tr key={row.label}><td><strong>{row.label}</strong></td><td>{row.value}</td><td>{row.note ?? "Proje koşullarıyla doğrulanır"}</td></tr>)}</tbody></table></div>; }

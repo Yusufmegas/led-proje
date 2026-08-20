@@ -2,6 +2,12 @@
 
 Bu checklist Next.js uygulaması geliştirildiğinde uygulanacaktır; mevcut belge herhangi bir framework dosyası oluşturmaz.
 
+## Temel teknik kararlar
+
+- [ ] Canonical origin ve `metadataBase` olarak `https://ledproje.com.tr` kullan; `www` varyantını tercih edilen domaine tek adımda yönlendir.
+- [ ] URL path'lerinde dokümante edilen slash'sız canonical biçimi kullan ve trailing-slash varyantlarını tek biçime yönlendir.
+- [ ] Next.js App Router ve strict TypeScript kullan; kritik içerikte mümkün olduğunca Server Components tercih et.
+
 ## Sayfa ve metadata
 
 - [ ] Her indexable URL için benzersiz, intent uyumlu title ve meta description üret.
@@ -30,9 +36,10 @@ Bu checklist Next.js uygulaması geliştirildiğinde uygulanacaktır; mevcut bel
 ## Structured data
 
 - [ ] JSON-LD ile yalnız görünür ve gerçek bilgileri işaretle.
-- [ ] Doğrulanmış kurumsal verilere göre `Organization`; koşullar karşılanırsa `LocalBusiness` değerlendir.
+- [x] Kullanıcı tarafından doğrulanan açık adres ve merkezi site config'iyle tutarlı `LocalBusiness` kullan; işletme adı yalnız `LEDProje` olsun.
+- [ ] `FAQPage` yalnız `/sik-sorulan-sorular` sayfasında, görünür soru ve cevaplarla birebir eşleşecek biçimde kullanılır.
 - [ ] Görünür breadcrumb ile uyumlu `BreadcrumbList` kullan.
-- [ ] Ürün sayfasında fiyat yoksa sahte `Offer`, price, availability veya aggregateRating ekleme.
+- [ ] Sabit fiyat olmadığı için `Offer`, price, priceCurrency, availability veya stock ekleme; görünür ve gerçek veri olmadan review/aggregateRating kullanma.
 - [ ] Schema tipini zengin sonuç garantisi gibi sunma; validator ve Rich Results Test ile kontrol et.
 
 ## Crawlability ve rendering
@@ -46,6 +53,7 @@ Bu checklist Next.js uygulaması geliştirildiğinde uygulanacaktır; mevcut bel
 ## Internal linking ve breadcrumbs
 
 - [ ] Ürün, çözüm, rehber, proje, hizmet ve şehir kümeleri arasında `SITE-ARCHITECTURE.md` modelini uygula.
+- [ ] `/` ile `/led-ekranlar`, iki fiyat sayfası, iç mekân ile mağaza ve dış mekân ile dış cephe arasındaki intent sınırlarını anchor ve içerik düzeyinde koru.
 - [ ] Anchor text'i hedef sayfayı açıklayacak biçimde doğal yaz; mekanik exact-match tekrarından kaçın.
 - [ ] Orphan indexable sayfa bırakma.
 - [ ] Ana sayfa hariç hiyerarşik sayfalarda görünür breadcrumb kullan.
@@ -77,6 +85,7 @@ Bu checklist Next.js uygulaması geliştirildiğinde uygulanacaktır; mevcut bel
 
 - [ ] URL, title, H1, intent, canonical ve index durumu birbiriyle uyumlu.
 - [ ] Sitemap/robots, redirect ve status code testleri başarılı.
+- [ ] Sitemap yalnız gerçekten oluşturulmuş, özgün, canonical ve indexlenebilir sayfaları içeriyor; kiralama route'u veya veri bekleyen pitch/şehir sayfası içermiyor.
 - [ ] Schema doğrulandı ve görünür içerikle eşleşiyor.
 - [ ] Mobil görünüm, klavye erişimi ve temel ekran okuyucu semantiği kontrol edildi.
 - [ ] Build, lint ve ilgili testler başarılı; Search Console URL Inspection ile kritik sayfalar kontrol edildi.

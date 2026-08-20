@@ -1,14 +1,21 @@
 # LEDProje Repository Kuralları
 
 - Her görevde önce kapsamı ve doğrulama adımlarını planla; uygulamadan önce mevcut mimariyi ve ilgili dosyaları incele.
+- İş modeli ve teknik kapsam için repository kökündeki `LEDProje_Website_Teknik_SEO_Bilgi_Dosyasi_v3.pdf` source of truth'tur. SEO URL sahipliği ve önceliklerinde kullanıcının son kararları ile `docs/SITE-ARCHITECTURE.md` ve `docs/KEYWORD-MAP.md` geçerlidir; çelişkiyi varsayımla çözme, raporla.
 - Kullanıcı onayı olmadan büyük mimari değişiklik, teknoloji değişimi veya kapsam genişletmesi yapma.
 - Gereksiz dependency ekleme. Yeni dependency gerekiyorsa mevcut araçlarla çözülemeyen ihtiyacı ve maliyetini açıkla.
 - Teknik özellik, fiyat, proje, referans, müşteri, sertifika, garanti, teslimat veya operasyon verisi uydurma. Eksik bilgiyi `TO VERIFY` olarak işaretle.
 - SEO'yu sonradan eklenecek bir katman olarak görme; URL, intent, metadata, içerik, internal linking, schema ve index durumunu sayfa geliştirilirken ele al.
+- SEO önceliklerinde `docs/KEYWORD-MAP.md` içindeki 1 Ağustos 2025–31 Temmuz 2026 Türkiye Keyword Planner verisini kullan. Google Ads Competition değerini organik SEO zorluğu sayma; top-of-page bid verisini yalnız ticari değer/reklam rekabeti sinyali olarak değerlendir.
+- Her primary query tek bir indexable URL'ye ait olmalı. Secondary query için ayrı ince route açma; cannibalization kontrolü yapmadan yeni SEO URL'si oluşturma.
+- LED ekran kiralama/kiralama fiyatları ve tüketici elektroniği sorguları iş modeli dışındadır; bunlar için route veya içerik oluşturma.
+- LEDProje'yi profesyonel LED ekran sistem entegratörü ve proje firması olarak konumlandır. Türkiye geneli satış, teknik danışmanlık, projelendirme, panel/modül ve komponent tedarik yönetimi, projeye özel kabinet/kasa, güç-data ve kontrol sistemi entegrasyonu, kendi teknik ekibiyle montaj/devreye alma, bakım ve teknik servisi doğru kapsamıyla anlat.
+- LEDProje'nin LED panel/modül ürettiğini, fabrikası veya üretim kapasitesi olduğunu söyleme. Üretici/tedarikçi marka adını web sitesi içeriğinde kullanma; LEDProje'yi yalnız bayi/satıcı olarak da tanımlama.
+- Canonical domain `https://ledproje.com.tr`; doğrulanmış şehir İstanbul'dur. Doğrulanmamış açık adres, şube veya yerel işletme kaydı oluşturma.
 - Mobil öncelikli, responsive ve erişilebilir arayüzler geliştir; semantik HTML, klavye kullanımı, görünür odak, yeterli kontrast ve anlamlı alternatif metin sağla.
 - Core Web Vitals ve yükleme maliyetini baştan gözet; görsel, font, JavaScript ve üçüncü taraf kodlarını gerekçesiz büyütme.
 - TypeScript strict yaklaşımını koru; `any`, kontrolsüz type assertion ve sessiz hata yutmayı gerekçesiz kullanma.
 - Ortak davranış ve görsel kalıplarda component reuse yap; erken ve anlamsız soyutlamadan kaçın.
-- Kullanıcıya gösterilen Türkçe metinler kurumsal, açık ve doğrulanabilir olmalı; fiyat gösterme veya doğrudan e-ticaret akışı oluşturma.
+- Kullanıcıya gösterilen Türkçe metinler kurumsal, açık ve doğrulanabilir olmalı; sabit ürün fiyatı, TL/m² fiyatı, başlangıç fiyatı veya doğrudan e-ticaret akışı oluşturma.
 - Görevi tamamlamadan önce mevcut proje komutlarına göre build, lint ve ilgili testleri çalıştır. Komut yoksa bunu açıkça raporla; doğrulama sonucu başarısızken işi tamamlanmış sayma.
 - İlgili kurallar için `docs/CONTENT-RULES.md`, `docs/TECHNICAL-SEO.md` ve project-specific `ledproje-seo` skill'ini uygula.
