@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
@@ -12,8 +13,10 @@ import { absoluteUrl, isNoindexDeployment, site } from "@/lib/site";
 // tarayıcının doğrudan istediği <img>/<video> kaynakları için gereklidir.
 const ogImage = { url: "/og-image.png", width: 1200, height: 630, alt: `${site.name} — Profesyonel LED Ekran Sistemleri` };
 
-// Boş bırakıldığında GTM hiç yüklenmez ve lib/analytics.ts sessizce no-op kalır.
-const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+// Google Analytics 4. Measurement ID herkese açık bir değerdir (sayfa kaynağında görünür),
+// bu yüzden env yerine doğrudan tutulur. Olaylar lib/analytics.ts içindeki trackEvent()
+// üzerinden gtag('event', ...) ile gönderilir.
+const GA4_MEASUREMENT_ID = "G-0830LXXSE4";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -30,11 +33,13 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const localBusiness = { "@context": "https://schema.org", "@type": "LocalBusiness", name: site.name, url: site.url, telephone: site.phoneInternational, areaServed: { "@type": "Country", name: "Türkiye" } };
   return <html lang="tr"><body>
-    {/* Resmi GTM snippet'i satır içi kullanılıyor: @next/third-parties yalnız bu iş için
-        ek bir dependency getirir ve dataLayer'ı hydration'dan önce tanımlama garantisi vermez. */}
-    {/* eslint-disable-next-line @next/next/next-script-for-ga */}
-    {gtmId && <script dangerouslySetInnerHTML={{ __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');` }} />}
-    {gtmId && <noscript><iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`} height="0" width="0" style={{ display: "none", visibility: "hidden" }} title="Google Tag Manager" /></noscript>}
+    <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`} strategy="afterInteractive" />
+    <Script id="ga4" strategy="afterInteractive">{`
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA4_MEASUREMENT_ID}');
+`}</Script>
     <a className="skip-link" href="#main">İçeriğe geç</a><Header /><main id="main">{children}</main><Footer /><WhatsappFab /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness).replace(/</g, "\\u003c") }} />
   </body></html>;
 }
