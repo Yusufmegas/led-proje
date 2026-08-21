@@ -44,17 +44,22 @@ const heroImages: Record<string, string> = {
   "esnek-led-ekran": "/images/visual-v3/curved-led.webp",
   "totem-led-ekran": "/images/visual-v3/totem-led.webp",
   "avm-led-ekran": "/images/visual-v3/mall-led.webp",
+  // retail-led yalnız mağaza sayfasına ayrıldı; iç mekân sayfası kurumsal salon
+  // görseline geçti (hem çakışma gider hem semantik olarak daha doğru).
   "magaza-led-ekran": "/images/visual-v3/retail-led.webp",
-  "ic-mekan-led-ekran": "/images/visual-v3/retail-led.webp",
-  "led-ekranlar": "/images/visual-v3/auditorium-led.webp",
+  "ic-mekan-led-ekran": "/images/visual-v3/auditorium-led.webp",
+  "led-ekranlar": "/images/visual-v3/mall-led.webp",
   // Dış mekân ile dış cephe aynı görseli paylaşıyordu; ayrıştırıldı.
   "dis-cephe-led-ekran": "/images/visual-v3/facade-led.webp",
-  "dis-mekan-led-ekran": "/images/visual-v3/curved-led.webp",
+  // Dış mekân ürün sayfasında iç mekân kavisli duvar görseli kullanılmaz.
+  "dis-mekan-led-ekran": "/images/visual-v3/facade-led.webp",
   // Hizmet sayfalarında hiç görsel yoktu.
-  "led-ekran-kesif-projelendirme": "/images/visual-v3/mall-led.webp",
+  // Dört teknik/hizmet sayfası aynı tekniker görselini paylaşır: 8 stok görselle
+  // tekrar kaçınılmaz olduğu için tekrarlar rastgele değil tematik olarak gruplandı.
+  "led-ekran-kesif-projelendirme": "/images/visual-v3/facade-led.webp",
   "led-ekran-montaji": "/images/visual-v3/service-led.webp",
   "led-ekran-bakim-onarim": "/images/visual-v3/service-led.webp",
-  "led-ekran-teknik-servis": "/images/visual-v3/auditorium-led.webp",
+  "led-ekran-teknik-servis": "/images/visual-v3/service-led.webp",
 };
 
 export function ContentPage({ page }: { page: SeoPage }) {
