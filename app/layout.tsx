@@ -16,7 +16,7 @@ const ogImage = { url: "/og-image.png", width: 1200, height: 630, alt: `${site.n
 // Google Analytics 4. Measurement ID herkese açık bir değerdir (sayfa kaynağında görünür),
 // bu yüzden env yerine doğrudan tutulur. Olaylar lib/analytics.ts içindeki trackEvent()
 // üzerinden gtag('event', ...) ile gönderilir.
-const GA4_MEASUREMENT_ID = "G-0830LXXSE4";
+const GA4_MEASUREMENT_ID = "G-5735NEXF3V";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
