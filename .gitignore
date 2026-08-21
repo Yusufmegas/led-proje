@@ -11,3 +11,9 @@ playwright-report/
 test-results/
 screenshots/
 screenshots-*/
+
+# Private arşive taşındı — repo public olduğu için commit edilmez.
+# Konum: ~/Desktop/ledproje-backup/private-docs/
+docs/
+LEDProje_Website_Teknik_SEO_Bilgi_Dosyasi_v3.pdf
+.agents/skills/ledproje-seo/
