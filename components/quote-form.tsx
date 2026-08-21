@@ -35,6 +35,10 @@ export function QuoteForm() {
       <div className="field"><label htmlFor="use">Proje / kullanım alanı</label><input id="use" name="use" placeholder="Mağaza, cephe, toplantı salonu..." required /></div>
       <div className="field field-wide"><label htmlFor="environment">Kullanım ortamı</label><select id="environment" name="environment" required defaultValue=""><option value="" disabled>Seçin</option><option>İç mekân</option><option>Dış mekân</option><option>Henüz net değil</option></select></div>
       <div className="field field-wide"><label htmlFor="message">Kısa proje notu <span>(isteğe bağlı)</span></label><textarea id="message" name="message" rows={3} /></div>
+      <div className="field-wide"><label style={{ display: "flex", gap: 8, alignItems: "flex-start", fontSize: 13 }}>
+        <input type="checkbox" required name="kvkk" style={{ marginTop: 3 }} />
+        <span><a className="text-link" href="/kvkk" target="_blank" rel="noreferrer">Aydınlatma Metni</a>’ni okudum, kişisel verilerimin işlenmesine onay veriyorum.</span>
+      </label></div>
       <div className="field-wide"><button className="button" type="submit">WhatsApp’tan Teklif İsteyin</button></div>
     </div>
   </form>;

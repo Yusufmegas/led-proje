@@ -26,7 +26,7 @@ export function MobileNav() {
         <button className="mobile-close" onClick={() => { setOpen(false); buttonRef.current?.focus(); }} aria-label="Menüyü kapat">×</button>
         <nav aria-label="Mobil navigasyon">
           <details><summary>LED Ekranlar</summary><div>{productLinks.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>)}</div></details>
-          <details><summary>Çözümler</summary>{solutionGroups.map((group) => <div className="mobile-nav-subgroup" key={group.title}><span>{group.title}</span>{group.links.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>)}</div>)}</details>
+          <details><summary>Çözümler</summary>{solutionGroups.map((group) => <div className="mobile-nav-subgroup" key={group.title}><span>{group.title}</span>{group.links.map((item) => <Link key={item.label} href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>)}</div>)}</details>
           <details><summary>Hizmetler</summary><div>{serviceLinks.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>)}</div></details>
           <Link href="/projeler" onClick={() => setOpen(false)}>Projeler</Link>
           <Link href="/teknik-bilgi" onClick={() => setOpen(false)}>Teknik Bilgi</Link>

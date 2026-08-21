@@ -5,11 +5,11 @@ import { productLinks, serviceLinks, solutionGroups } from "@/lib/navigation";
 import { site } from "@/lib/site";
 
 function Menu({ label, links }: { label: string; links: { href: string; label: string }[] }) {
-  return <div className="nav-group"><button type="button">{label}<span aria-hidden="true">⌄</span></button><div className="mega-panel">{links.map((x) => <Link key={x.href} href={x.href}>{x.label}<span>→</span></Link>)}</div></div>;
+  return <div className="nav-group"><button type="button">{label}<span aria-hidden="true">⌄</span></button><div className="mega-panel">{links.map((x) => <Link key={x.label} href={x.href}>{x.label}<span>→</span></Link>)}</div></div>;
 }
 
 function SolutionsMenu() {
-  return <div className="nav-group nav-group-wide"><button type="button">Çözümler<span aria-hidden="true">⌄</span></button><div className="mega-panel mega-panel-groups">{solutionGroups.map((group) => <section key={group.title}><h2>{group.title}</h2>{group.links.map((item) => <Link key={item.href} href={item.href}>{item.label}<span>→</span></Link>)}</section>)}</div></div>;
+  return <div className="nav-group nav-group-wide"><button type="button">Çözümler<span aria-hidden="true">⌄</span></button><div className="mega-panel mega-panel-groups">{solutionGroups.map((group) => <section key={group.title}><h2>{group.title}</h2>{group.links.map((item) => <Link key={item.label} href={item.href}>{item.label}<span>→</span></Link>)}</section>)}</div></div>;
 }
 
 export function Header() {

@@ -57,8 +57,16 @@ export function ContentPage({ page }: { page: SeoPage }) {
       {page.specs && <section><h2>Doğrulanmış Teknik Veriler</h2><p>Değerler kaynak teknik dokümandan alınmıştır. Nihai ürün ve proje uygunluğu teklif öncesinde doğrulanır.</p><TechnicalSpecs rows={page.specs} /></section>}
       <ContentEnhancements page={page} />
       {page.slug !== "teknik-bilgi" && <div className="content-story">{page.sections.map((section, index) => <section className={`story-block story-${index % 3}`} key={section.title}><span className="story-number">0{index + 1}</span>{section.eyebrow && <span className="eyebrow">{naturalTurkish(section.eyebrow)}</span>}<h2>{naturalTurkish(section.title)}</h2><p>{naturalTurkish(section.body)}</p>{section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{naturalTurkish(item)}</li>)}</ul>}{section.links && <div className="button-row">{section.links.map((item) => <Link className="text-link" key={item.href} href={item.href}>{item.label} →</Link>)}</div>}</section>)}</div>}
+      {page.faqs.length > 0 && <section className="faq-list" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">Sık Sorulan Sorular</h2>
+        <dl>{page.faqs.map((faq) => <div key={faq.question}><dt>{naturalTurkish(faq.question)}</dt><dd>{naturalTurkish(faq.answer)}</dd></div>)}</dl>
+      </section>}
       <p className="faq-center-link"><Link className="text-link" href="/sik-sorulan-sorular">LED ekran projeleri hakkında sık sorulan soruları inceleyin →</Link></p>
       <SectorProjects sector={page.slug} />
+      {page.related.length > 0 && <section className="module-heading" aria-labelledby="related-heading">
+        <h2 id="related-heading">İlgili Konular</h2>
+        <nav className="module-actions" aria-label="İlgili içerikler">{page.related.map((item) => <Link className="text-link" key={`${item.href}-${item.label}`} href={item.href}>{item.label} →</Link>)}</nav>
+      </section>}
     </article><aside className="sidebar"><span className="eyebrow light">Proje dosyanızı açın</span><h2>Ölçü ve kullanım alanıyla başlayın.</h2><p>Sabit fiyat yerine projenizin teknik kapsamını oluşturalım.</p><Link className="button" href="/iletisim#teklif">Teklif Al</Link><a className="button button-secondary" href={site.phoneHref}>Telefonla Görüşün</a></aside></div></div>
   </>;
 }

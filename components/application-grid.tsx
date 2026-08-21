@@ -18,6 +18,6 @@ const applications = [
 
 export function ApplicationGrid() {
   return <div className="v5-application-grid">{applications.map((item) => <Link href={item.href} key={item.title}>
-    <div><Image src={item.image} alt={item.alt} fill loading={["Spor salonu ve arena", "Sahne ve organizasyon", "Açık alan ve meydan"].includes(item.title) ? "eager" : "lazy"} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" /></div><span><h3>{item.title}</h3><p>{item.text}</p><b>Çözümü inceleyin →</b></span>
+    <div><Image src={item.image} alt={item.alt} fill loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" /></div><span><h3>{item.title}</h3><p>{item.text}</p><b>Çözümü inceleyin →</b></span>
   </Link>)}</div>;
 }

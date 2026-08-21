@@ -9,19 +9,24 @@ export const productLinks: LinkItem[] = [
   { href: "/led-ekran-kontrol-sistemleri", label: "Kontrol Sistemleri" },
 ];
 
+// Fragment'ler kaldırıldı: hedef sayfalarda karşılık gelen section id'leri yok, bu yüzden
+// eski "#kullanim", "#showroom" gibi bağlantılar kullanıcıyı sayfanın başına düşürüyordu.
+// Hedefler components/application-grid.tsx içindeki aynı 12 kullanım alanıyla hizalandı.
+// Birden fazla kullanım alanı aynı sayfaya çıkabildiği için href benzersiz değildir;
+// listeyi render eden bileşenler React key'i olarak label kullanır.
 export const solutionLinks: LinkItem[] = [
-  { href: "/magaza-led-ekran#kullanim", label: "Mağaza ve perakende" },
-  { href: "/avm-led-ekran#kullanim", label: "AVM ortak alanları" },
-  { href: "/magaza-led-ekran#showroom", label: "Showroom" },
-  { href: "/avm-led-ekran#otel-etkinlik", label: "Otel ve etkinlik alanları" },
-  { href: "/ic-mekan-led-ekran#kurumsal", label: "Kurumsal ofis ve lobi" },
-  { href: "/ic-mekan-led-ekran#toplanti", label: "Toplantı ve konferans salonları" },
-  { href: "/led-ekran-kontrol-sistemleri#kontrol-merkezi", label: "Kontrol merkezi ve izleme odası" },
-  { href: "/dis-cephe-led-ekran#bina-cepheleri", label: "Bina cephesi" },
-  { href: "/dis-mekan-led-ekran#acik-alan", label: "Açık alan ve meydan" },
-  { href: "/totem-led-ekran#giris-alanlari", label: "Totem ve giriş alanları" },
-  { href: "/led-ekranlar#spor-arena", label: "Spor salonu ve arena" },
-  { href: "/led-ekranlar#sahne-organizasyon", label: "Sahne ve organizasyon" },
+  { href: "/magaza-led-ekran", label: "Mağaza ve perakende" },
+  { href: "/avm-led-ekran", label: "AVM ortak alanları" },
+  { href: "/magaza-led-ekran", label: "Showroom" },
+  { href: "/ic-mekan-led-ekran", label: "Otel ve etkinlik alanları" },
+  { href: "/ic-mekan-led-ekran", label: "Kurumsal ofis ve lobi" },
+  { href: "/ic-mekan-led-ekran", label: "Toplantı ve konferans salonları" },
+  { href: "/led-ekran-kontrol-sistemleri", label: "Kontrol merkezi ve izleme odası" },
+  { href: "/dis-cephe-led-ekran", label: "Bina cephesi" },
+  { href: "/dis-mekan-led-ekran", label: "Açık alan ve meydan" },
+  { href: "/totem-led-ekran", label: "Totem ve giriş alanları" },
+  { href: "/led-ekranlar", label: "Spor salonu ve arena" },
+  { href: "/ic-mekan-led-ekran", label: "Sahne ve organizasyon" },
 ];
 
 export const solutionGroups = [
