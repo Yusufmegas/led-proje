@@ -14,7 +14,9 @@ const nextConfig: NextConfig = {
   // basePath'i client tarafına da taşır; lib/site.ts assetPath() bunu kullanarak
   // public/ varlıklarını prefixler (unoptimized image loader bunu kendisi yapmaz).
   env: { NEXT_PUBLIC_BASE_PATH: githubPagesBasePath },
-  images: { unoptimized: true, formats: ["image/avif", "image/webp"] }
+  // Cloudflare Image Transformations. `formats` yalnız Next'in yerleşik optimizer'ı
+  // için geçerlidir; custom loader'da biçim seçimi Cloudflare'in format=auto'suna aittir.
+  images: { loader: "custom", loaderFile: "./lib/cloudflare-loader.ts" }
 };
 
 export default nextConfig;

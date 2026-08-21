@@ -1,0 +1,9 @@
+# Cloudflare Pages header kuralları.
+# Görseller içerik değişince dosya adıyla değil elle güncellendiği için uzun cache +
+# immutable veriliyor; değişiklik gerekirse dosya adı değiştirilmelidir.
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# _next/static altındaki her dosya adı hash içerir, sonsuza kadar cache'lenebilir.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
