@@ -64,16 +64,16 @@ jobs:
       - name: Add .nojekyll
         run: touch out/.nojekyll
       - name: Configure Pages
-        if: ${{ vars.GITHUB_PAGES_ENABLED == 'true' }}
+        if: ${{ vars.PAGES_ENABLED == 'true' }}
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
-        if: ${{ vars.GITHUB_PAGES_ENABLED == 'true' }}
+        if: ${{ vars.PAGES_ENABLED == 'true' }}
         uses: actions/upload-pages-artifact@v3
         with:
           path: out
 
   deploy:
-    if: ${{ vars.GITHUB_PAGES_ENABLED == 'true' }}
+    if: ${{ vars.PAGES_ENABLED == 'true' }}
     needs: build
     runs-on: ubuntu-latest
     environment:
