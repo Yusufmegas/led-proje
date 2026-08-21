@@ -20,8 +20,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      GITHUB_PAGES_PROJECT: "false"
-      NEXT_PUBLIC_SITE_URL: https://yusufmegas.github.io
+      # Repo adı led-proje olduğu için Pages siteyi /led-proje/ alt yolundan servis eder;
+      # basePath ve assetPrefix bu yüzden zorunludur.
+      GITHUB_PAGES_PROJECT: "true"
+      NEXT_PUBLIC_SITE_URL: https://yusufmegas.github.io/led-proje
+      # Önizleme dağıtımı: canonical domain ledproje.com.tr yayına alındığında
+      # duplicate content oluşmaması için tüm sayfalar noindex + robots disallow.
+      NEXT_PUBLIC_NOINDEX: "true"
     steps:
       - name: Checkout
         uses: actions/checkout@v4

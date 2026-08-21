@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { assetPath } from "@/lib/site";
 
 const productFamilies = [
   { title: "İç Mekân LED Ekran", text: "Yakın izleme ve kontrollü ortam", href: "/ic-mekan-led-ekran", image: "/images/visual-v3/retail-led.webp", alt: "İç mekânda kullanılan geniş LED ekran yüzeyi" },
@@ -12,7 +13,7 @@ const productFamilies = [
 
 export function ProductFamilyGrid() {
   return <div className="v4-product-grid">{productFamilies.map((item) => <Link className="v4-product-card" href={item.href} key={item.href}>
-    <div className="v4-product-image"><Image src={item.image} alt={item.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" /></div>
+    <div className="v4-product-image"><Image src={assetPath(item.image)} alt={item.alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" /></div>
     <div className="v4-product-copy"><h3>{item.title}</h3><p>{item.text}</p><span>Ürünü inceleyin <b aria-hidden="true">→</b></span></div>
   </Link>)}</div>;
 }

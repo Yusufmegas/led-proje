@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   agentRules: false,
   turbopack: { root: process.cwd() },
+  // basePath'i client tarafına da taşır; lib/site.ts assetPath() bunu kullanarak
+  // public/ varlıklarını prefixler (unoptimized image loader bunu kendisi yapmaz).
+  env: { NEXT_PUBLIC_BASE_PATH: githubPagesBasePath },
   images: { unoptimized: true, formats: ["image/avif", "image/webp"] }
 };
 

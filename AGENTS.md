@@ -1,12 +1,13 @@
 # LEDProje Repository Kuralları
 
 - Her görevde önce kapsamı ve doğrulama adımlarını planla; uygulamadan önce mevcut mimariyi ve ilgili dosyaları incele.
-- İş modeli ve teknik kapsam için repository kökündeki `LEDProje_Website_Teknik_SEO_Bilgi_Dosyasi_v3.pdf` source of truth'tur. SEO URL sahipliği ve önceliklerinde kullanıcının son kararları ile `docs/SITE-ARCHITECTURE.md` ve `docs/KEYWORD-MAP.md` geçerlidir; çelişkiyi varsayımla çözme, raporla.
+- İş modeli, teknik kapsam ve SEO stratejisi dokümanları bu repository'de **tutulmaz**. Repo public olduğu için `LEDProje_Website_Teknik_SEO_Bilgi_Dosyasi_v3.pdf`, `docs/` ve `ledproje-seo` skill'i private arşive taşınmıştır (varsayılan konum: `~/Desktop/ledproje-backup/private-docs/`). Bu dosyalara ihtiyaç duyan görevlerde kullanıcıdan iste; içeriklerini repoya geri kopyalama.
+- SEO URL sahipliği ve önceliklerinde kullanıcının son kararları ile arşivdeki `SITE-ARCHITECTURE.md` ve `KEYWORD-MAP.md` geçerlidir; çelişkiyi varsayımla çözme, raporla.
 - Kullanıcı onayı olmadan büyük mimari değişiklik, teknoloji değişimi veya kapsam genişletmesi yapma.
 - Gereksiz dependency ekleme. Yeni dependency gerekiyorsa mevcut araçlarla çözülemeyen ihtiyacı ve maliyetini açıkla.
 - Teknik özellik, fiyat, proje, referans, müşteri, sertifika, garanti, teslimat veya operasyon verisi uydurma. Eksik bilgiyi `TO VERIFY` olarak işaretle.
 - SEO'yu sonradan eklenecek bir katman olarak görme; URL, intent, metadata, içerik, internal linking, schema ve index durumunu sayfa geliştirilirken ele al.
-- SEO önceliklerinde `docs/KEYWORD-MAP.md` içindeki 1 Ağustos 2025–31 Temmuz 2026 Türkiye Keyword Planner verisini kullan. Google Ads Competition değerini organik SEO zorluğu sayma; top-of-page bid verisini yalnız ticari değer/reklam rekabeti sinyali olarak değerlendir.
+- SEO önceliklerinde arşivdeki `KEYWORD-MAP.md` içindeki 1 Ağustos 2025–31 Temmuz 2026 Türkiye Keyword Planner verisini kullan. Google Ads Competition değerini organik SEO zorluğu sayma; top-of-page bid verisini yalnız ticari değer/reklam rekabeti sinyali olarak değerlendir.
 - Her primary query tek bir indexable URL'ye ait olmalı. Secondary query için ayrı ince route açma; cannibalization kontrolü yapmadan yeni SEO URL'si oluşturma.
 - LED ekran kiralama/kiralama fiyatları ve tüketici elektroniği sorguları iş modeli dışındadır; bunlar için route veya içerik oluşturma.
 - LEDProje'yi profesyonel LED ekran sistem entegratörü ve proje firması olarak konumlandır. Türkiye geneli satış, teknik danışmanlık, projelendirme, panel/modül ve komponent tedarik yönetimi, projeye özel kabinet/kasa, güç-data ve kontrol sistemi entegrasyonu, kendi teknik ekibiyle montaj/devreye alma, bakım ve teknik servisi doğru kapsamıyla anlat.
@@ -18,4 +19,5 @@
 - Ortak davranış ve görsel kalıplarda component reuse yap; erken ve anlamsız soyutlamadan kaçın.
 - Kullanıcıya gösterilen Türkçe metinler kurumsal, açık ve doğrulanabilir olmalı; sabit ürün fiyatı, TL/m² fiyatı, başlangıç fiyatı veya doğrudan e-ticaret akışı oluşturma.
 - Görevi tamamlamadan önce mevcut proje komutlarına göre build, lint ve ilgili testleri çalıştır. Komut yoksa bunu açıkça raporla; doğrulama sonucu başarısızken işi tamamlanmış sayma.
-- İlgili kurallar için `docs/CONTENT-RULES.md`, `docs/TECHNICAL-SEO.md` ve project-specific `ledproje-seo` skill'ini uygula.
+- İlgili kurallar için private arşivdeki `CONTENT-RULES.md`, `TECHNICAL-SEO.md` ve `ledproje-seo` skill'ini uygula.
+- Repo public'tir: müşteri adı, fiyat, sözleşme, anahtar kelime hacim/bid verisi veya iç strateji notu commit etme.

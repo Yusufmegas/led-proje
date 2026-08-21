@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { assetPath } from "@/lib/site";
 
 const applications = [
   { title: "Mağaza ve perakende", text: "Vitrin ve satış alanlarında kampanya görünürlüğünü güçlendiren ekran yerleşimleri.", href: "/magaza-led-ekran", image: "/images/temporary/store-led-display.webp", alt: "Mağaza içindeki geniş dijital ekran alanı" },
@@ -18,6 +19,6 @@ const applications = [
 
 export function ApplicationGrid() {
   return <div className="v5-application-grid">{applications.map((item) => <Link href={item.href} key={item.title}>
-    <div><Image src={item.image} alt={item.alt} fill loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" /></div><span><h3>{item.title}</h3><p>{item.text}</p><b>Çözümü inceleyin →</b></span>
+    <div><Image src={assetPath(item.image)} alt={item.alt} fill loading="lazy" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw" /></div><span><h3>{item.title}</h3><p>{item.text}</p><b>Çözümü inceleyin →</b></span>
   </Link>)}</div>;
 }

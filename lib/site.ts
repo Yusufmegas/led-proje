@@ -1,5 +1,18 @@
 const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "");
 
+// GitHub Pages project-path deploy'unda (örn. /led-proje) next.config.ts basePath uygular.
+// next/link ve _next asset'leri prefix'i otomatik alır; ancak `images.unoptimized: true`
+// olduğu için next/image loader devre dışıdır ve public/ altındaki src'lere basePath
+// EKLENMEZ. Bu yüzden public/ kökünden servis edilen her varlık assetPath() ile sarılmalıdır.
+export const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+export function assetPath(path: string) {
+  return path.startsWith("/") ? `${basePath}${path}` : path;
+}
+
+// Önizleme (github.io) dağıtımını taramaya kapatmak için kullanılır; canonical domain
+// ledproje.com.tr yayına alındığında duplicate content sinyali oluşmasını engeller.
+export const isNoindexDeployment = process.env.NEXT_PUBLIC_NOINDEX === "true";
+
 export const site = {
   name: "LEDProje",
   url: configuredSiteUrl ?? "https://ledproje.com.tr",

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ProjectShowcase } from "@/components/project-showcase";
 import type { SeoPage } from "@/lib/types";
 import { getProjectShowcaseData, getReferenceShowcaseData } from "@/lib/sector-projects";
+import { assetPath } from "@/lib/site";
 
 const productUses: Record<string, string[]> = {
   "led-ekranlar": ["Kurumsal sunum", "Perakende iletişimi", "Mimari görünürlük"],
@@ -44,5 +45,5 @@ export function ContentEnhancements({ page }: { page: SeoPage }) {
   }
   const uses = productUses[page.slug];
   if (!uses) return null;
-  return <section className="product-decision"><div className="module-heading"><span className="eyebrow">Ürün seçimi</span><h2>Projenize uygun sistemi belirleyin</h2><p>Ürün ailesi; ortam, izleme mesafesi, ekran ölçüsü, içerik ve bakım erişimi birlikte değerlendirilerek seçilir.</p></div><div className="use-grid">{uses.map((use, i) => <article key={use}><span>0{i + 1}</span><h3>{use}</h3><p>Görüntü yüzeyi ve sistem bileşenleri kullanım koşuluna göre projelendirilir.</p></article>)}</div><div className="integration-panel"><div><h3>Montaj ve sistem entegrasyonu</h3><p>Kabinet, güç, alıcı kart ve veri bağlantıları; kontrol sistemi, mekanik montaj ve devreye alma adımlarıyla tek kapsamda ele alınır.</p></div><Image src="/images/visual-v3/service-led.webp" alt="LED ekran kabinetinin arka yüzündeki güç ve veri bileşenleri" width={760} height={500} sizes="(max-width: 800px) 100vw, 42vw" /></div></section>;
+  return <section className="product-decision"><div className="module-heading"><span className="eyebrow">Ürün seçimi</span><h2>Projenize uygun sistemi belirleyin</h2><p>Ürün ailesi; ortam, izleme mesafesi, ekran ölçüsü, içerik ve bakım erişimi birlikte değerlendirilerek seçilir.</p></div><div className="use-grid">{uses.map((use, i) => <article key={use}><span>0{i + 1}</span><h3>{use}</h3><p>Görüntü yüzeyi ve sistem bileşenleri kullanım koşuluna göre projelendirilir.</p></article>)}</div><div className="integration-panel"><div><h3>Montaj ve sistem entegrasyonu</h3><p>Kabinet, güç, alıcı kart ve veri bağlantıları; kontrol sistemi, mekanik montaj ve devreye alma adımlarıyla tek kapsamda ele alınır.</p></div><Image src={assetPath("/images/visual-v3/service-led.webp")} alt="LED ekran kabinetinin arka yüzündeki güç ve veri bileşenleri" width={760} height={500} loading="lazy" sizes="(max-width: 800px) 100vw, 42vw" /></div></section>;
 }
