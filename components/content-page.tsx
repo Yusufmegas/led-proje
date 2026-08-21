@@ -35,16 +35,34 @@ function naturalTurkish(value: string) {
     .replaceAll("lokasyon", "konum");
 }
 
+// Sayfa hero görselleri. SeoPage tipinde görsel alanı olmadığı için eşleme burada tutulur.
+// UYARI: visual-v3 setinde yalnız 8 görsel var, 13 sayfa bunları paylaşıyor. Aşağıdaki
+// tekrarlar (retail ×2, service ×3, curved ×2, mall ×2, auditorium ×2) asset yetersizliğinden
+// kaynaklanır; gerçek proje fotoğrafları eklendiğinde her sayfa kendi görseline ayrılmalıdır.
+const heroImages: Record<string, string> = {
+  "poster-led-ekran": "/images/visual-v3/poster-led.webp",
+  "esnek-led-ekran": "/images/visual-v3/curved-led.webp",
+  "totem-led-ekran": "/images/visual-v3/totem-led.webp",
+  "avm-led-ekran": "/images/visual-v3/mall-led.webp",
+  "magaza-led-ekran": "/images/visual-v3/retail-led.webp",
+  "ic-mekan-led-ekran": "/images/visual-v3/retail-led.webp",
+  "led-ekranlar": "/images/visual-v3/auditorium-led.webp",
+  // Dış mekân ile dış cephe aynı görseli paylaşıyordu; ayrıştırıldı.
+  "dis-cephe-led-ekran": "/images/visual-v3/facade-led.webp",
+  "dis-mekan-led-ekran": "/images/visual-v3/curved-led.webp",
+  // Hizmet sayfalarında hiç görsel yoktu.
+  "led-ekran-kesif-projelendirme": "/images/visual-v3/mall-led.webp",
+  "led-ekran-montaji": "/images/visual-v3/service-led.webp",
+  "led-ekran-bakim-onarim": "/images/visual-v3/service-led.webp",
+  "led-ekran-teknik-servis": "/images/visual-v3/auditorium-led.webp",
+};
+
 export function ContentPage({ page }: { page: SeoPage }) {
   const isOutdoor = page.slug.includes("dis-") || ["p5-led-ekran", "p10-led-ekran", "totem-led-ekran"].includes(page.slug);
   const imageForSlug = () => {
-    if (page.slug === "poster-led-ekran") return "/images/visual-v3/poster-led.webp";
-    if (page.slug === "esnek-led-ekran") return "/images/visual-v3/curved-led.webp";
-    if (page.slug === "totem-led-ekran") return "/images/visual-v3/totem-led.webp";
-    if (page.slug === "avm-led-ekran") return "/images/visual-v3/mall-led.webp";
-    if (page.slug === "magaza-led-ekran" || page.slug === "ic-mekan-led-ekran") return "/images/visual-v3/retail-led.webp";
+    const mapped = heroImages[page.slug];
+    if (mapped) return mapped;
     if (page.slug.includes("kontrol")) return "/images/visual-v3/service-led.webp";
-    if (page.slug === "led-ekranlar") return "/images/visual-v3/auditorium-led.webp";
     return isOutdoor ? "/images/visual-v3/facade-led.webp" : undefined;
   };
   const heroImage = imageForSlug();

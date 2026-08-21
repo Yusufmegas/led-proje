@@ -9,7 +9,9 @@ const applications = [
   { title: "Kurumsal ofis ve lobi", text: "Karşılama ve kurumsal iletişim için mimariye uyarlanan LED ekranlar.", href: "/ic-mekan-led-ekran", image: "/images/visual-v3/curved-led.webp", alt: "Kurumsal alandaki kavisli LED ekran" },
   { title: "Toplantı ve konferans salonları", text: "Sunumların salon genelinde net izlenmesini sağlayan kesintisiz görüntü yüzeyi.", href: "/ic-mekan-led-ekran", image: "/images/visual-v3/auditorium-led.webp", alt: "Konferans salonundaki geniş LED video duvarı" },
   { title: "Otel ve etkinlik alanları", text: "Karşılama, yönlendirme ve program iletişimi için projeye özel ekran yerleşimi.", href: "/ic-mekan-led-ekran", image: "/images/visual-v3/retail-led.webp", alt: "Otel karşılama alanındaki LED ekran" },
-  { title: "Spor salonu ve arena", text: "Tribün görüşüne göre planlanan skor ve yayın ekranları.", href: "/led-ekranlar", image: "/images/visual-v7/arena-led.webp", alt: "Spor arenasında tribünlerden izlenen merkez ekran" },
+  // Geçici: RUPP ARENA görseli (tanınabilir üçüncü taraf tesis) kaldırıldı,
+  // kendi saha çekimimiz gelene kadar totem karesi kullanılıyor.
+  { title: "Spor salonu ve arena", text: "Tribün görüşüne göre planlanan skor ve yayın ekranları.", href: "/led-ekranlar", image: "/images/visual-v3/totem-led.webp", alt: "Geniş alanda uzaktan izlenen dikey LED ekran yüzeyi" },
   { title: "Sahne ve organizasyon", text: "Sahne akışını destekleyen geniş ve etkili görüntü yüzeyleri.", href: "/ic-mekan-led-ekran", image: "/images/visual-v3/auditorium-led.webp", alt: "Sahne ve etkinlik alanındaki geniş LED görüntü yüzeyi" },
   { title: "Bina cephesi", text: "Cephe, taşıyıcı yapı ve bakım erişimi birlikte projelendirilen dış mekân ekranları.", href: "/dis-cephe-led-ekran", image: "/images/visual-v3/facade-led.webp", alt: "Bina cephesine uygulanmış büyük LED ekran" },
   { title: "Açık alan ve meydan", text: "Gün ışığı ve izleme mesafesine göre planlanan dış mekân görünürlüğü.", href: "/dis-mekan-led-ekran", image: "/images/visual-v3/facade-led.webp", alt: "Açık alanda gün ışığında izlenen büyük dış mekân LED ekran" },
