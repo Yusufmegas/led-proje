@@ -4,17 +4,17 @@ import { assetPath } from "@/lib/site";
 
 const applications = [
   { title: "Mağaza ve perakende", text: "Vitrin ve satış alanlarında kampanya görünürlüğünü güçlendiren ekran yerleşimleri.", href: "/magaza-led-ekran", image: "/images/temporary/store-led-display.webp", alt: "Mağaza içindeki geniş dijital ekran alanı" },
-  { title: "AVM ortak alanları", text: "Geniş dolaşım alanlarında uzaktan fark edilen mimari ekran çözümleri.", href: "/avm-led-ekran", image: "/images/visual-v5/mall-led-wall.webp", alt: "Alışveriş merkezi içindeki büyük LED duvar" },
+  { title: "AVM ortak alanları", text: "Geniş dolaşım alanlarında uzaktan fark edilen mimari ekran çözümleri.", href: "/avm-led-ekran", image: "/images/visual-v3/mall-led.webp", alt: "Alışveriş merkezi ortak alanındaki büyük LED ekran yüzeyi" },
   { title: "Showroom", text: "Ürün ve marka sunumunu mekânın odağına taşıyan geniş görüntü yüzeyleri.", href: "/magaza-led-ekran", image: "/images/visual-v3/poster-led.webp", alt: "Showroom girişindeki dikey poster LED ekran" },
   { title: "Kurumsal ofis ve lobi", text: "Karşılama ve kurumsal iletişim için mimariye uyarlanan LED ekranlar.", href: "/ic-mekan-led-ekran", image: "/images/visual-v3/curved-led.webp", alt: "Kurumsal alandaki kavisli LED ekran" },
   { title: "Toplantı ve konferans salonları", text: "Sunumların salon genelinde net izlenmesini sağlayan kesintisiz görüntü yüzeyi.", href: "/ic-mekan-led-ekran", image: "/images/visual-v3/auditorium-led.webp", alt: "Konferans salonundaki geniş LED video duvarı" },
   { title: "Otel ve etkinlik alanları", text: "Karşılama, yönlendirme ve program iletişimi için projeye özel ekran yerleşimi.", href: "/ic-mekan-led-ekran", image: "/images/visual-v3/retail-led.webp", alt: "Otel karşılama alanındaki LED ekran" },
   { title: "Spor salonu ve arena", text: "Tribün görüşüne göre planlanan skor ve yayın ekranları.", href: "/led-ekranlar", image: "/images/visual-v7/arena-led.webp", alt: "Spor arenasında tribünlerden izlenen merkez ekran" },
-  { title: "Sahne ve organizasyon", text: "Sahne akışını destekleyen geniş ve etkili görüntü yüzeyleri.", href: "/ic-mekan-led-ekran", image: "/images/visual-v7/stage-led.webp", alt: "Konser sahnesindeki büyük LED ekran ve ışık düzeni" },
+  { title: "Sahne ve organizasyon", text: "Sahne akışını destekleyen geniş ve etkili görüntü yüzeyleri.", href: "/ic-mekan-led-ekran", image: "/images/visual-v3/auditorium-led.webp", alt: "Sahne ve etkinlik alanındaki geniş LED görüntü yüzeyi" },
   { title: "Bina cephesi", text: "Cephe, taşıyıcı yapı ve bakım erişimi birlikte projelendirilen dış mekân ekranları.", href: "/dis-cephe-led-ekran", image: "/images/visual-v3/facade-led.webp", alt: "Bina cephesine uygulanmış büyük LED ekran" },
   { title: "Açık alan ve meydan", text: "Gün ışığı ve izleme mesafesine göre planlanan dış mekân görünürlüğü.", href: "/dis-mekan-led-ekran", image: "/images/temporary/outdoor-led-facade.webp", alt: "Açık alandaki büyük dış mekân LED ekran" },
   { title: "Totem ve giriş alanları", text: "Bağımsız konumda dikey iletişim sağlayan LED totem çözümleri.", href: "/totem-led-ekran", image: "/images/visual-v3/totem-led.webp", alt: "Giriş alanında konumlandırılmış dikey LED totem" },
-  { title: "Kontrol merkezi ve izleme odası", text: "Birden fazla veri kaynağını tek görüntü yüzeyinde izlemeye uygun sistem yaklaşımı.", href: "/led-ekran-kontrol-sistemleri", image: "/images/visual-v3/mall-led.webp", alt: "Geniş ve kesintisiz LED ekran yüzeyi" },
+  { title: "Kontrol merkezi ve izleme odası", text: "Birden fazla veri kaynağını tek görüntü yüzeyinde izlemeye uygun sistem yaklaşımı.", href: "/led-ekran-kontrol-sistemleri", image: "/images/visual-v3/service-led.webp", alt: "Kontrol ve izleme altyapısının teknik bileşenleri" },
 ] as const;
 
 export function ApplicationGrid() {
