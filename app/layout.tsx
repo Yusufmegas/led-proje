@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
+import { CookieConsent } from "@/components/cookie-consent";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { WhatsappFab } from "@/components/whatsapp-fab";
@@ -37,9 +38,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <Script id="ga4" strategy="afterInteractive">{`
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
+var stored = document.cookie.match(/(?:^|;\\s*)ledproje_consent=([^;]*)/);
+gtag('consent', 'default', {
+  'analytics_storage': stored && stored[1] === 'granted' ? 'granted' : 'denied',
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied'
+});
 gtag('js', new Date());
 gtag('config', '${GA4_MEASUREMENT_ID}');
 `}</Script>
-    <a className="skip-link" href="#main">İçeriğe geç</a><Header /><main id="main">{children}</main><Footer /><WhatsappFab /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness).replace(/</g, "\\u003c") }} />
+    <a className="skip-link" href="#main">İçeriğe geç</a><Header /><main id="main">{children}</main><Footer /><WhatsappFab /><CookieConsent /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness).replace(/</g, "\\u003c") }} />
   </body></html>;
 }
