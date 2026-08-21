@@ -12,6 +12,11 @@ test-results/
 screenshots/
 screenshots-*/
 
+# Saha fotoğrafları ve kaynak videolar: müşteri izni netleşene kadar yerelde tutulur.
+public/images/projects/
+ledproje video 1/
+*.mp4
+
 # Private arşive taşındı — repo public olduğu için commit edilmez.
 # Konum: ~/Desktop/ledproje-backup/private-docs/
 docs/

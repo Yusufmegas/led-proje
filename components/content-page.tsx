@@ -36,39 +36,35 @@ function naturalTurkish(value: string) {
 }
 
 // Sayfa hero görselleri. SeoPage tipinde görsel alanı olmadığı için eşleme burada tutulur.
-// Kaynak: LEDProje'nin kendi saha çekimlerinden çıkarılan kareler (public/images/projects).
-// Markası okunan dört proje burada değil, lib/sector-projects.ts içinde referans olarak yayınlanır.
-// Her sayfa kendi görselini kullanır — tekrar yoktur.
+// UYARI: visual-v3 setinde yalnız 8 görsel var, 13 sayfa bunları paylaşıyor. Aşağıdaki
+// tekrarlar (retail ×2, service ×3, curved ×2, mall ×2, auditorium ×2) asset yetersizliğinden
+// kaynaklanır; gerçek proje fotoğrafları eklendiğinde her sayfa kendi görseline ayrılmalıdır.
 const heroImages: Record<string, string> = {
-  // Ürün ve çözüm sayfaları
-  "led-ekranlar": "/images/projects/ic_4.webp",
-  "ic-mekan-led-ekran": "/images/projects/ic_1.webp",
-  "dis-mekan-led-ekran": "/images/projects/dis_1.webp",
-  "dis-cephe-led-ekran": "/images/projects/dis_2.webp",
-  "magaza-led-ekran": "/images/projects/ic_2.webp",
-  "avm-led-ekran": "/images/projects/ic_3.webp",
-  "poster-led-ekran": "/images/projects/ic_6.webp",
-  "esnek-led-ekran": "/images/projects/ic_11.webp",
-  "totem-led-ekran": "/images/projects/ic_5.webp",
-  "led-ekran-kontrol-sistemleri": "/images/projects/ic_7.webp",
-  // Hizmet sayfaları
-  "led-ekran-kesif-projelendirme": "/images/projects/dis_7.webp",
-  "led-ekran-montaji": "/images/projects/dis_4.webp",
-  "led-ekran-bakim-onarim": "/images/projects/dis_6.webp",
-  "led-ekran-teknik-servis": "/images/projects/dis_5.webp",
-  // Piksel aralığı sayfaları
-  "p2-5-led-ekran": "/images/projects/ic_9.webp",
-  "p3-led-ekran": "/images/projects/ic_10.webp",
-  "p4-led-ekran": "/images/projects/dis_3.webp",
-  "p5-led-ekran": "/images/projects/dis_8.webp",
-  "p10-led-ekran": "/images/projects/dis_9.webp",
+  "poster-led-ekran": "/images/visual-v3/poster-led.webp",
+  "esnek-led-ekran": "/images/visual-v3/curved-led.webp",
+  "totem-led-ekran": "/images/visual-v3/totem-led.webp",
+  "avm-led-ekran": "/images/visual-v3/mall-led.webp",
+  "magaza-led-ekran": "/images/visual-v3/retail-led.webp",
+  "ic-mekan-led-ekran": "/images/visual-v3/retail-led.webp",
+  "led-ekranlar": "/images/visual-v3/auditorium-led.webp",
+  // Dış mekân ile dış cephe aynı görseli paylaşıyordu; ayrıştırıldı.
+  "dis-cephe-led-ekran": "/images/visual-v3/facade-led.webp",
+  "dis-mekan-led-ekran": "/images/visual-v3/curved-led.webp",
+  // Hizmet sayfalarında hiç görsel yoktu.
+  "led-ekran-kesif-projelendirme": "/images/visual-v3/mall-led.webp",
+  "led-ekran-montaji": "/images/visual-v3/service-led.webp",
+  "led-ekran-bakim-onarim": "/images/visual-v3/service-led.webp",
+  "led-ekran-teknik-servis": "/images/visual-v3/auditorium-led.webp",
 };
 
 export function ContentPage({ page }: { page: SeoPage }) {
   const isOutdoor = page.slug.includes("dis-") || ["p5-led-ekran", "p10-led-ekran", "totem-led-ekran"].includes(page.slug);
-  // Eşlenmemiş sayfalar (şehir, kurumsal, fiyat) görselsiz kalır; dış mekân bağlamı olanlar
-  // için stok cephe görseli yedek olarak kullanılır.
-  const imageForSlug = () => heroImages[page.slug] ?? (isOutdoor ? "/images/visual-v3/facade-led.webp" : undefined);
+  const imageForSlug = () => {
+    const mapped = heroImages[page.slug];
+    if (mapped) return mapped;
+    if (page.slug.includes("kontrol")) return "/images/visual-v3/service-led.webp";
+    return isOutdoor ? "/images/visual-v3/facade-led.webp" : undefined;
+  };
   const heroImage = imageForSlug();
   const isPitch = /^p\d/.test(page.slug);
   return <>
