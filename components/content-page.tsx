@@ -36,9 +36,10 @@ function naturalTurkish(value: string) {
 }
 
 // Sayfa hero görselleri. SeoPage tipinde görsel alanı olmadığı için eşleme burada tutulur.
-// UYARI: visual-v3 setinde yalnız 8 görsel var, 13 sayfa bunları paylaşıyor. Aşağıdaki
-// tekrarlar (retail ×2, service ×3, curved ×2, mall ×2, auditorium ×2) asset yetersizliğinden
-// kaynaklanır; gerçek proje fotoğrafları eklendiğinde her sayfa kendi görseline ayrılmalıdır.
+// UYARI: hero kullanan 16 sayfa 9 görseli paylaşıyor. Kalan tekrarlar: facade ×4
+// (dış cephe + keşif + P5 + P10), service ×4 (montaj + bakım + teknik servis + kontrol),
+// mall ×2 (AVM + ürün merkezi). Bunlar asset yetersizliğinden kaynaklanır; gerçek proje
+// fotoğrafları eklendiğinde her sayfa kendi görseline ayrılmalıdır.
 const heroImages: Record<string, string> = {
   "poster-led-ekran": "/images/visual-v3/poster-led.webp",
   "esnek-led-ekran": "/images/visual-v3/curved-led.webp",
@@ -51,8 +52,9 @@ const heroImages: Record<string, string> = {
   "led-ekranlar": "/images/visual-v3/mall-led.webp",
   // Dış mekân ile dış cephe aynı görseli paylaşıyordu; ayrıştırıldı.
   "dis-cephe-led-ekran": "/images/visual-v3/facade-led.webp",
-  // Dış mekân ürün sayfasında iç mekân kavisli duvar görseli kullanılmaz.
-  "dis-mekan-led-ekran": "/images/visual-v3/facade-led.webp",
+  // Dış mekân ürün sayfasında iç mekân kavisli duvar görseli kullanılmaz. visual-v8 meydan
+  // görseli cepheden ayrıştırır: dış cephe = bina yüzeyi, dış mekân = serbest duran ekran.
+  "dis-mekan-led-ekran": "/images/visual-v8/plaza-led.webp",
   // Hizmet sayfalarında hiç görsel yoktu.
   // Dört teknik/hizmet sayfası aynı tekniker görselini paylaşır: 8 stok görselle
   // tekrar kaçınılmaz olduğu için tekrarlar rastgele değil tematik olarak gruplandı.
