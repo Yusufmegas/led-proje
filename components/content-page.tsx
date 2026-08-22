@@ -5,6 +5,7 @@ import { Breadcrumbs } from "@/components/breadcrumbs";
 import { ContentEnhancements } from "@/components/content-enhancements";
 import { ProductFamilyGrid } from "@/components/product-family-grid";
 import { SectorProjects } from "@/components/sector-projects";
+import { StandardsGrid } from "@/components/standards-grid";
 import { TechnicalSpecs } from "@/components/technical-specs";
 import type { SeoPage } from "@/lib/types";
 import { assetPath, site } from "@/lib/site";
@@ -79,6 +80,7 @@ export function ContentPage({ page }: { page: SeoPage }) {
     <div className="section"><div className="container page-layout"><article className="prose">
       {page.slug === "led-ekranlar" && <section><h2>LED Ekran Ürün Aileleri</h2><p>Ürün gruplarını kullanım ortamı ve fiziksel yapı üzerinden karşılaştırın; ayrıntılar için ilgili sayfaya geçin.</p><ProductFamilyGrid /></section>}
       {page.slug === "led-ekran-metrekare-fiyati" && <section><h2>LED Ekran Alan Hesaplama Aracı</h2><p>Metre cinsinden en ve boy ölçünüzü girin. Araç yalnız ekran alanını hesaplar; fiyat üretmez.</p><AreaCalculator /></section>}
+      {page.slug === "hakkimizda" && <StandardsGrid />}
       {page.specs && <section><h2>Doğrulanmış Teknik Veriler</h2><p>Değerler kaynak teknik dokümandan alınmıştır. Nihai ürün ve proje uygunluğu teklif öncesinde doğrulanır.</p><TechnicalSpecs rows={page.specs} /></section>}
       <ContentEnhancements page={page} />
       {page.slug !== "teknik-bilgi" && <div className="content-story">{page.sections.map((section, index) => <section className={`story-block story-${index % 3}`} key={section.title}><span className="story-number">0{index + 1}</span>{section.eyebrow && <span className="eyebrow">{naturalTurkish(section.eyebrow)}</span>}<h2>{naturalTurkish(section.title)}</h2><p>{naturalTurkish(section.body)}</p>{section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{naturalTurkish(item)}</li>)}</ul>}{section.links && <div className="button-row">{section.links.map((item) => <Link className="text-link" key={item.href} href={item.href}>{item.label} →</Link>)}</div>}</section>)}</div>}

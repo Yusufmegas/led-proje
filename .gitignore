@@ -22,3 +22,8 @@ ledproje video 1/
 docs/
 LEDProje_Website_Teknik_SEO_Bilgi_Dosyasi_v3.pdf
 .agents/skills/ledproje-seo/
+
+# Kaynak teknik bilgi dosyası: üçüncü tarafa ait marka adı, adres, telefon ve
+# e-posta içerir; repo public olduğu için commit edilmez. Yalnız teknik spec
+# tabloları lib/products.ts içine aktarılmıştır.
+PlatinLED_Website_Teknik_Bilgi_Dosyasi.pdf

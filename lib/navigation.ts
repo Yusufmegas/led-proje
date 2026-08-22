@@ -1,6 +1,11 @@
 import type { LinkItem } from "@/lib/types";
 
+// Ürün ailelerinin teknik künye sayfaları. Uygulama/çözüm odaklı mevcut sayfalardan
+// ayrı tutulur; ikisi karşılıklı bağlanır.
+export const productCatalogLink: LinkItem = { href: "/urunler", label: "Ürünler" };
+
 export const productLinks: LinkItem[] = [
+  { href: "/urunler", label: "Tüm Ürünler ve Teknik Künyeler" },
   { href: "/ic-mekan-led-ekran", label: "İç Mekân LED Ekran" },
   { href: "/dis-mekan-led-ekran", label: "Dış Mekân LED Ekran" },
   { href: "/poster-led-ekran", label: "Poster LED Ekran" },

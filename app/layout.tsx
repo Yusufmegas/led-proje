@@ -37,10 +37,10 @@ gtag('config', '${GA4_MEASUREMENT_ID}');
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: "Profesyonel LED Ekran Sistemleri | LEDProje", template: "%s | LEDProje" },
-  description: "Profesyonel LED ekran sistemlerinde projelendirme, sistem entegrasyonu, montaj, devreye alma ve teknik servis.",
+  title: { default: "LED Ekran Üreticisi Türkiye | İç & Dış Mekân LED Ekran — LEDProje", template: "%s | LED Ekran Üreticisi — LEDProje" },
+  description: "Türkiye'nin LED ekran üreticisi LEDProje: iç mekân, dış mekân, poster, esnek ve totem LED ekran imalatı, projelendirme, montaj ve teknik servis.",
   alternates: { canonical: "/" },
-  openGraph: { type: "website", locale: "tr_TR", siteName: site.name, title: "Profesyonel LED Ekran Sistemleri | LEDProje", description: "Türkiye genelinde anahtar teslim profesyonel LED ekran sistemleri.", url: absoluteUrl("/"), images: [ogImage] },
+  openGraph: { type: "website", locale: "tr_TR", siteName: site.name, title: "LED Ekran Üreticisi Türkiye — LEDProje", description: "İç mekân, dış mekân, poster, esnek ve totem LED ekran imalatı; projelendirme, montaj ve teknik servis.", url: absoluteUrl("/"), images: [ogImage] },
   twitter: { card: "summary_large_image", images: [ogImage.url] },
   // Önizleme dağıtımında tüm sayfalar taramaya kapatılır.
   ...(isNoindexDeployment && { robots: { index: false, follow: false, nocache: true, googleBot: { index: false, follow: false } } }),
@@ -48,9 +48,34 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#07111f", colorScheme: "light" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const localBusiness = { "@context": "https://schema.org", "@type": "LocalBusiness", name: site.name, url: site.url, telephone: site.phoneInternational, areaServed: { "@type": "Country", name: "Türkiye" } };
+  // İki şema bir @graph içinde: LocalBusiness yerel/iletişim sinyalini, Organization ise
+  // üretici kimliğini ve kuruluş yılını taşır. @id ile birbirlerine bağlanır.
+  const orgId = `${site.url}#organization`;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": orgId,
+        name: site.name,
+        url: site.url,
+        logo: absoluteUrl("/og-image.png"),
+        foundingDate: "2021",
+        description: "İç mekân, dış mekân, poster, esnek ve totem LED ekran sistemleri üreten, projelendiren ve kuran LED ekran üreticisi.",
+        areaServed: { "@type": "Country", name: "Türkiye" },
+      },
+      {
+        "@type": "LocalBusiness",
+        name: site.name,
+        url: site.url,
+        telephone: site.phoneInternational,
+        parentOrganization: { "@id": orgId },
+        areaServed: { "@type": "Country", name: "Türkiye" },
+      },
+    ],
+  };
   return <html lang="tr"><body>
     <script id="ga4-consent-bootstrap" dangerouslySetInnerHTML={{ __html: consentBootstrap }} />
-    <a className="skip-link" href="#main">İçeriğe geç</a><Header /><main id="main">{children}</main><Footer /><WhatsappFab /><CookieConsent /><AnalyticsLoader /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness).replace(/</g, "\\u003c") }} />
+    <a className="skip-link" href="#main">İçeriğe geç</a><Header /><main id="main">{children}</main><Footer /><WhatsappFab /><CookieConsent /><AnalyticsLoader /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
   </body></html>;
 }
