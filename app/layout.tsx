@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import "./globals.css";
+import { AnalyticsLoader } from "@/components/analytics-loader";
 import { CookieConsent } from "@/components/cookie-consent";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { WhatsappFab } from "@/components/whatsapp-fab";
+import { GA4_MEASUREMENT_ID } from "@/lib/analytics";
 import { absoluteUrl, isNoindexDeployment, site } from "@/lib/site";
 
 // 1200x630 statik PNG. `output: "export"` altında next/og ImageResponse çalışmadığı için
@@ -14,10 +15,25 @@ import { absoluteUrl, isNoindexDeployment, site } from "@/lib/site";
 // tarayıcının doğrudan istediği <img>/<video> kaynakları için gereklidir.
 const ogImage = { url: "/og-image.png", width: 1200, height: 630, alt: `${site.name} — Profesyonel LED Ekran Sistemleri` };
 
-// Google Analytics 4. Measurement ID herkese açık bir değerdir (sayfa kaynağında görünür),
-// bu yüzden env yerine doğrudan tutulur. Olaylar lib/analytics.ts içindeki trackEvent()
-// üzerinden gtag('event', ...) ile gönderilir.
-const GA4_MEASUREMENT_ID = "G-5735NEXF3V";
+// Consent Mode v2 bootstrap. Yalnız dataLayer kuyruğunu hazırlar: ağ isteği yoktur ve
+// 162 KiB'lik gtag.js burada YÜKLENMEZ. Kütüphaneyi onay durumuna göre AnalyticsLoader
+// enjekte eder. Varsayılanların kütüphaneden önce kuyruğa girmesi Consent Mode'un
+// gereğidir, bu yüzden bu blok satır içi ve senkron kalır (çalışması <1 ms).
+const consentBootstrap = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'analytics_storage': 'denied',
+  'ad_storage': 'denied',
+  'ad_user_data': 'denied',
+  'ad_personalization': 'denied'
+});
+if (/(?:^|;\\s*)ledproje_consent=granted/.test(document.cookie)) {
+  gtag('consent', 'update', { 'analytics_storage': 'granted' });
+}
+gtag('js', new Date());
+gtag('config', '${GA4_MEASUREMENT_ID}');
+`.trim();
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -34,20 +50,7 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const localBusiness = { "@context": "https://schema.org", "@type": "LocalBusiness", name: site.name, url: site.url, telephone: site.phoneInternational, areaServed: { "@type": "Country", name: "Türkiye" } };
   return <html lang="tr"><body>
-    <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`} strategy="afterInteractive" />
-    <Script id="ga4" strategy="afterInteractive">{`
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-var stored = document.cookie.match(/(?:^|;\\s*)ledproje_consent=([^;]*)/);
-gtag('consent', 'default', {
-  'analytics_storage': stored && stored[1] === 'granted' ? 'granted' : 'denied',
-  'ad_storage': 'denied',
-  'ad_user_data': 'denied',
-  'ad_personalization': 'denied'
-});
-gtag('js', new Date());
-gtag('config', '${GA4_MEASUREMENT_ID}');
-`}</Script>
-    <a className="skip-link" href="#main">İçeriğe geç</a><Header /><main id="main">{children}</main><Footer /><WhatsappFab /><CookieConsent /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness).replace(/</g, "\\u003c") }} />
+    <script id="ga4-consent-bootstrap" dangerouslySetInnerHTML={{ __html: consentBootstrap }} />
+    <a className="skip-link" href="#main">İçeriğe geç</a><Header /><main id="main">{children}</main><Footer /><WhatsappFab /><CookieConsent /><AnalyticsLoader /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusiness).replace(/</g, "\\u003c") }} />
   </body></html>;
 }

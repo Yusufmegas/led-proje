@@ -1,6 +1,6 @@
 "use client";
 
-import { CONSENT_REOPEN_EVENT } from "@/components/cookie-consent";
+import { CONSENT_REOPEN_EVENT } from "@/lib/consent";
 
 /**
  * KVKK kapsamında verilen rıza her zaman geri alınabilir olmalıdır; bu bağlantı

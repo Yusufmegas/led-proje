@@ -1,3 +1,8 @@
+// Google Analytics 4. Measurement ID herkese açık bir değerdir (sayfa kaynağında
+// görünür), bu yüzden env yerine doğrudan tutulur. Kütüphanenin kendisi yalnız onay
+// sonrası yüklenir; bkz. components/analytics-loader.tsx.
+export const GA4_MEASUREMENT_ID = "G-5735NEXF3V";
+
 export type LeadEvent =
   | "quote_cta_click"
   | "whatsapp_click"

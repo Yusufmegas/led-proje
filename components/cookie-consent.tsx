@@ -2,36 +2,10 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
-
-const COOKIE_NAME = "ledproje_consent";
-const ONE_YEAR = 60 * 60 * 24 * 365;
-
-/** Onayın geri alınabilmesi için footer'daki "Çerez tercihleri" bağlantısı bu olayı yayar. */
-export const CONSENT_REOPEN_EVENT = "ledproje:consent-reopen";
-
-function readConsent() {
-  return document.cookie.match(/(?:^|;\s*)ledproje_consent=([^;]*)/)?.[1] ?? null;
-}
-
-// Çerez, React dışında yaşayan bir durum. Statik export'ta sunucu anlık görüntüsü
-// her zaman "kapalı" döner; gerçek karar yalnız istemcide okunur. Bu yaklaşım
-// hem hydration uyuşmazlığını hem effect içinde setState çağrısını önler.
-const listeners = new Set<() => void>();
-let reopened = false;
-const emit = () => listeners.forEach((l) => l());
-
-function subscribe(onChange: () => void) {
-  listeners.add(onChange);
-  const reopen = () => { reopened = true; emit(); };
-  window.addEventListener(CONSENT_REOPEN_EVENT, reopen);
-  return () => { listeners.delete(onChange); window.removeEventListener(CONSENT_REOPEN_EVENT, reopen); };
-}
-
-const getSnapshot = () => reopened || readConsent() === null;
-const getServerSnapshot = () => false;
+import { getBannerServerSnapshot, getBannerSnapshot, subscribeConsent, writeConsent, type ConsentValue } from "@/lib/consent";
 
 export function CookieConsent() {
-  const open = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  const open = useSyncExternalStore(subscribeConsent, getBannerSnapshot, getBannerServerSnapshot);
   const ref = useRef<HTMLDivElement>(null);
 
   // Bandın yüksekliği metin sarmasına göre değişir (masaüstünde tek, dar ekranda iki
@@ -51,12 +25,13 @@ export function CookieConsent() {
     return () => { ro.disconnect(); document.body.classList.remove("consent-open"); document.body.style.removeProperty("--consent-h"); };
   }, [open]);
 
-  const decide = useCallback((value: "granted" | "denied") => {
-    document.cookie = `${COOKIE_NAME}=${value}; path=/; max-age=${ONE_YEAR}; SameSite=Lax`;
-    // Consent Mode v2: GA4 varsayılanı 'denied'; ölçümleme yalnız onayla açılır.
+  const decide = useCallback((value: ConsentValue) => {
+    // Consent Mode v2 güncellemesi çerezden ÖNCE kuyruğa girer: onay verildiğinde
+    // AnalyticsLoader gtag.js'i hemen enjekte eder ve kütüphane yüklendiğinde
+    // kuyruktaki son durum zaten doğru olur. Onay geri alındığında ise kütüphane
+    // çoktan yüklüyse ölçümleme bu çağrıyla kapanır.
     window.gtag?.("consent", "update", { analytics_storage: value });
-    reopened = false;
-    emit();
+    writeConsent(value);
   }, []);
 
   if (!open) return null;
