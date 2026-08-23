@@ -9,17 +9,32 @@ import { useEffect, useState } from "react";
  * uyguluyor ve viewport'un hemen altındaki kartlar bu eşiğe giriyor. Sonuç, LCP
  * görseliyle bant genişliği yarışı (ana sayfada ~190 KB).
  *
- * Bu sarmalayıcı görseli `load` sonrası boş zamana kadar DOM'a hiç sokmaz.
- * `fetchPriority="low"` bu senaryoda ölçülebilir bir kazanç vermedi (tarayıcı zaten
- * düşük öncelik atıyor); indirmeyi tamamen ertelemek gerekiyor.
+ * Bu sarmalayıcı görselin İNDİRİLMESİNİ `load` sonrası boş zamana kadar erteler.
  *
- * Kapsam sınırlı tutulur: yalnız <img> ertelenir. Başlık, açıklama ve bağlantılar
- * sunucuda render edilmeye devam eder, dolayısıyla içerik ve iç bağlantı yapısı
- * statik HTML'de aynen durur. Kapsayıcılarda (.v4-product-image, .v5-application-grid
- * > a > div) `aspect-ratio` ve arka plan rengi tanımlı olduğu için yer önceden
- * ayrılmıştır: görsel sonradan gelse de CLS oluşmaz.
+ * Önceki sürüm bunu `<img>` etiketini hiç render etmeyerek yapıyordu; alt metinleri
+ * de statik HTML'e düşmüyordu (ana sayfada 29 görselin yalnız 7'sinin alt metni
+ * vardı). Artık `<img>` sunucuda alt metni, boyut ve `sizes` bilgisiyle birlikte
+ * basılır; ertelenen tek şey `src`/`srcset`. Bunun için görsel hazır olana kadar
+ * kaynak olarak 1×1 saydam GIF verilir — next/image `data:` ile başlayan kaynakları
+ * otomatik `unoptimized` sayar, yani srcset üretmez ve ağ isteği çıkarmaz. Hazır
+ * olunca React yalnız `src`/`srcset` niteliklerini günceller; alt metni hiç değişmez.
+ *
+ * `<noscript>` kopyası gerçek dosya yolunu alt metniyle eşleşmiş halde statik HTML'de
+ * tutar (Google Görseller ham HTML'i de tarar) ve JavaScript kapalıyken kartların
+ * görselsiz kalmasını önler. JavaScript açık tarayıcılar noscript içeriğini indirmez.
+ * React noscript çocuklarını hidrasyonda metin olarak gördüğü için içerik
+ * dangerouslySetInnerHTML ile basılır.
+ *
+ * Kapsayıcılarda (.v4-product-image, .v5-application-grid > a > div) `aspect-ratio`
+ * ve arka plan rengi tanımlı olduğu için yer önceden ayrılmıştır: CLS oluşmaz.
  */
-export function DeferredImage(props: ImageProps) {
+const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
+function escapeAttribute(value: string) {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
+export function DeferredImage({ src, alt, ...rest }: ImageProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -41,9 +56,14 @@ export function DeferredImage(props: ImageProps) {
     };
   }, []);
 
-  if (!ready) return null;
-  // jsx-a11y spread'in içini göremiyor; `alt` zaten ImageProps'ta zorunlu olduğu için
-  // eksik bırakılması derleme hatası verir.
-  // eslint-disable-next-line jsx-a11y/alt-text
-  return <Image {...props} />;
+  const noscriptImage = typeof src === "string"
+    ? `<img src="${escapeAttribute(src)}" alt="${escapeAttribute(alt)}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%">`
+    : "";
+
+  return (
+    <>
+      <Image {...rest} src={ready ? src : TRANSPARENT_PIXEL} alt={alt} />
+      {noscriptImage && <noscript dangerouslySetInnerHTML={{ __html: noscriptImage }} />}
+    </>
+  );
 }

@@ -48,7 +48,6 @@ export type ProductCategory = {
   useCases: string[];
   control?: string;
   image: string;
-  imageAlt: string;
   /** Aynı konuyu uygulama tarafından ele alan mevcut çözüm sayfası. */
   relatedPage: { href: string; label: string };
 };
@@ -84,7 +83,6 @@ export const productCategories: ProductCategory[] = [
     useCases: ["Mağaza", "Showroom", "Toplantı ve konferans salonu", "Otel lobisi", "Stüdyo"],
     control: "Colorlight gönderici + alıcı kart · PlayerMaster yazılımı · HDMI / senkron / uzaktan yönetim",
     image: "/images/visual-v8/hotel-led.webp",
-    imageAlt: "Otel lobisinde resepsiyon arkasına yerleştirilmiş geniş iç mekân LED ekran duvarı",
     relatedPage: { href: "/ic-mekan-led-ekran", label: "İç mekân LED ekran çözümleri" },
   },
   {
@@ -116,7 +114,6 @@ export const productCategories: ProductCategory[] = [
     useCases: ["Bina cephesi", "Totem", "Meydan", "Cadde", "Saha kenarı"],
     control: "Colorlight gönderici + alıcı kart · senkron / asenkron · uzaktan (bulut) yönetim (4G/Wi-Fi ops.)",
     image: "/images/visual-v3/facade-led.webp",
-    imageAlt: "Bina cephesine uygulanmış yüksek parlaklıklı dış mekân LED ekran",
     relatedPage: { href: "/dis-mekan-led-ekran", label: "Dış mekân LED ekran çözümleri" },
   },
   {
@@ -143,7 +140,6 @@ export const productCategories: ProductCategory[] = [
     useCases: ["Mağaza girişi", "AVM girişi", "Otel", "Showroom"],
     control: "Dahili oynatıcı / asenkron kart · USB veya HDMI ile içerik · uzaktan yönetim (ops.)",
     image: "/images/visual-v3/poster-led.webp",
-    imageAlt: "Showroom girişinde konumlandırılmış dikey poster LED ekran",
     relatedPage: { href: "/poster-led-ekran", label: "Poster LED ekran çözümleri" },
   },
   {
@@ -168,7 +164,6 @@ export const productCategories: ProductCategory[] = [
     ],
     useCases: ["Sütun ve kolon kaplama", "Kavisli duvar", "Mağaza vitrini", "Dekoratif alanlar"],
     image: "/images/visual-v3/curved-led.webp",
-    imageAlt: "Kavisli yüzeye uyarlanmış esnek LED ekran",
     relatedPage: { href: "/esnek-led-ekran", label: "Esnek LED ekran çözümleri" },
   },
   {
@@ -195,7 +190,6 @@ export const productCategories: ProductCategory[] = [
     ],
     useCases: ["Cadde totem tabela", "AVM totem", "Yön ve ilan panosu", "İstasyon"],
     image: "/images/visual-v3/totem-led.webp",
-    imageAlt: "Giriş alanında konumlandırılmış çift taraflı dikey LED totem",
     relatedPage: { href: "/totem-led-ekran", label: "Totem LED ekran çözümleri" },
   },
 ];

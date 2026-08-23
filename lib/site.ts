@@ -36,4 +36,10 @@ export function absoluteUrl(path = "/") {
   const withSlash = pathname.endsWith("/") ? pathname : `${pathname}/`;
   return rest.length ? `${base}${withSlash}#${rest.join("#")}` : `${base}${withSlash}`;
 }
+// absoluteUrl() sayfa URL'leri içindir ve trailingSlash uyumu için sona slash ekler;
+// bir dosya yolunda bu dosya adını bozar (/images/x.webp/). Sitemap görsel uzantısı
+// mutlak varlık URL'lerini bu yüzden ayrı üretir.
+export function absoluteAssetUrl(path: string) {
+  return `${site.url.replace(/\/+$/, "")}${assetPath(path)}`;
+}
 export function whatsappUrl(message: string) { return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`; }

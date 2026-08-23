@@ -7,6 +7,7 @@ import { ProductFamilyGrid } from "@/components/product-family-grid";
 import { SectorProjects } from "@/components/sector-projects";
 import { StandardsGrid } from "@/components/standards-grid";
 import { TechnicalSpecs } from "@/components/technical-specs";
+import { heroImageFor } from "@/lib/images";
 import type { SeoPage } from "@/lib/types";
 import { assetPath, site } from "@/lib/site";
 
@@ -36,47 +37,11 @@ function naturalTurkish(value: string) {
     .replaceAll("lokasyon", "konum");
 }
 
-// Sayfa hero görselleri. SeoPage tipinde görsel alanı olmadığı için eşleme burada tutulur.
-// UYARI: hero kullanan 16 sayfa 9 görseli paylaşıyor. Kalan tekrarlar: facade ×4
-// (dış cephe + keşif + P5 + P10), service ×4 (montaj + bakım + teknik servis + kontrol),
-// mall ×2 (AVM + ürün merkezi). Bunlar asset yetersizliğinden kaynaklanır; gerçek proje
-// fotoğrafları eklendiğinde her sayfa kendi görseline ayrılmalıdır.
-const heroImages: Record<string, string> = {
-  "poster-led-ekran": "/images/visual-v3/poster-led.webp",
-  "esnek-led-ekran": "/images/visual-v3/curved-led.webp",
-  "totem-led-ekran": "/images/visual-v3/totem-led.webp",
-  "avm-led-ekran": "/images/visual-v3/mall-led.webp",
-  // retail-led yalnız mağaza sayfasına ayrıldı; iç mekân sayfası kurumsal salon
-  // görseline geçti (hem çakışma gider hem semantik olarak daha doğru).
-  "magaza-led-ekran": "/images/visual-v3/retail-led.webp",
-  "ic-mekan-led-ekran": "/images/visual-v3/auditorium-led.webp",
-  "led-ekranlar": "/images/visual-v3/mall-led.webp",
-  // Dış mekân ile dış cephe aynı görseli paylaşıyordu; ayrıştırıldı.
-  "dis-cephe-led-ekran": "/images/visual-v3/facade-led.webp",
-  // Dış mekân ürün sayfasında iç mekân kavisli duvar görseli kullanılmaz. visual-v8 meydan
-  // görseli cepheden ayrıştırır: dış cephe = bina yüzeyi, dış mekân = serbest duran ekran.
-  "dis-mekan-led-ekran": "/images/visual-v8/plaza-led.webp",
-  // Hizmet sayfalarında hiç görsel yoktu.
-  // Dört teknik/hizmet sayfası aynı tekniker görselini paylaşır: 8 stok görselle
-  // tekrar kaçınılmaz olduğu için tekrarlar rastgele değil tematik olarak gruplandı.
-  "led-ekran-kesif-projelendirme": "/images/visual-v3/facade-led.webp",
-  "led-ekran-montaji": "/images/visual-v3/service-led.webp",
-  "led-ekran-bakim-onarim": "/images/visual-v3/service-led.webp",
-  "led-ekran-teknik-servis": "/images/visual-v3/service-led.webp",
-};
-
 export function ContentPage({ page }: { page: SeoPage }) {
-  const isOutdoor = page.slug.includes("dis-") || ["p5-led-ekran", "p10-led-ekran", "totem-led-ekran"].includes(page.slug);
-  const imageForSlug = () => {
-    const mapped = heroImages[page.slug];
-    if (mapped) return mapped;
-    if (page.slug.includes("kontrol")) return "/images/visual-v3/service-led.webp";
-    return isOutdoor ? "/images/visual-v3/facade-led.webp" : undefined;
-  };
-  const heroImage = imageForSlug();
+  const heroImage = heroImageFor(page.slug);
   const isPitch = /^p\d/.test(page.slug);
   return <>
-    <header className={`page-hero page-hero-${page.kind} ${heroImage ? "" : "page-hero-text-only"}`}><div className="container page-hero-grid"><div><Breadcrumbs current={page.h1} slug={page.slug} /><span className="eyebrow">{page.eyebrow}</span>{isPitch && <span className="pitch-watermark" aria-hidden="true">{page.slug.split("-")[0].toUpperCase()}</span>}<h1>{page.h1}</h1><p className="lead">{page.intro}</p><div className="button-row"><Link className="button" href="/iletisim#teklif">Projenize Özel Teklif Al</Link><a className="button button-outline" href={site.phoneHref}>{site.phoneDisplay}</a></div></div>{heroImage && <div className="page-hero-image"><Image src={assetPath(heroImage)} alt={`${page.h1} çözümünü kullanım ortamında gösteren LED ekran`} fill priority fetchPriority="high" sizes="(max-width: 1080px) 96vw, (max-width: 1300px) 40vw, 470px" /></div>}</div><div className="container page-proof-strip"><div><b>01</b><span>Teknik keşif</span></div><div><b>02</b><span>Sistem entegrasyonu</span></div><div><b>03</b><span>Montaj ve devreye alma</span></div><div><b>04</b><span>Teknik servis</span></div></div></header>
+    <header className={`page-hero page-hero-${page.kind} ${heroImage ? "" : "page-hero-text-only"}`}><div className="container page-hero-grid"><div><Breadcrumbs current={page.h1} slug={page.slug} /><span className="eyebrow">{page.eyebrow}</span>{isPitch && <span className="pitch-watermark" aria-hidden="true">{page.slug.split("-")[0].toUpperCase()}</span>}<h1>{page.h1}</h1><p className="lead">{page.intro}</p><div className="button-row"><Link className="button" href="/iletisim#teklif">Projenize Özel Teklif Al</Link><a className="button button-outline" href={site.phoneHref}>{site.phoneDisplay}</a></div></div>{heroImage && <div className="page-hero-image"><Image src={assetPath(heroImage.src)} alt={heroImage.alt} fill priority fetchPriority="high" sizes="(max-width: 1080px) 96vw, (max-width: 1300px) 40vw, 470px" /></div>}</div><div className="container page-proof-strip"><div><b>01</b><span>Teknik keşif</span></div><div><b>02</b><span>Sistem entegrasyonu</span></div><div><b>03</b><span>Montaj ve devreye alma</span></div><div><b>04</b><span>Teknik servis</span></div></div></header>
     <div className="section"><div className="container page-layout"><article className="prose">
       {page.slug === "led-ekranlar" && <section><h2>LED Ekran Ürün Aileleri</h2><p>Ürün gruplarını kullanım ortamı ve fiziksel yapı üzerinden karşılaştırın; ayrıntılar için ilgili sayfaya geçin.</p><ProductFamilyGrid /></section>}
       {page.slug === "led-ekran-metrekare-fiyati" && <section><h2>LED Ekran Alan Hesaplama Aracı</h2><p>Metre cinsinden en ve boy ölçünüzü girin. Araç yalnız ekran alanını hesaplar; fiyat üretmez.</p><AreaCalculator /></section>}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ProductFilter } from "@/components/product-filter";
+import { altOf } from "@/lib/images";
 import { productCategories } from "@/lib/products";
 import { assetPath } from "@/lib/site";
 
@@ -16,7 +17,7 @@ export function ProductCategoryGrid() {
                 <div className="product-category-image">
                   <Image
                     src={assetPath(item.image)}
-                    alt={item.imageAlt}
+                    alt={altOf(item.image)}
                     fill
                     priority={index === 0}
                     loading={index === 0 ? "eager" : "lazy"}

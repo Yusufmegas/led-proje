@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { altOf } from "@/lib/images";
 import { assetPath } from "@/lib/site";
 import { standards } from "@/lib/standards";
 
@@ -16,7 +17,7 @@ export function StandardsGrid() {
         {standards.map((standard) => (
           <article key={standard.id}>
             {standard.logoUrl && (
-              <Image src={assetPath(standard.logoUrl)} alt={`${standard.name} — ${standard.description}`} width={160} height={96} unoptimized />
+              <Image src={assetPath(standard.logoUrl)} alt={altOf(standard.logoUrl)} width={160} height={96} unoptimized />
             )}
             <h3>{standard.name}</h3>
             <p>{standard.description}</p>

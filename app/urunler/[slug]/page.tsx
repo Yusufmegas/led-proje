@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { altOf } from "@/lib/images";
 import { controlSystems, productCategories, productCategoryMap, warranty } from "@/lib/products";
 import { absoluteUrl, assetPath, isNoindexDeployment, site } from "@/lib/site";
 
@@ -44,7 +45,7 @@ export default async function ProductCategoryPage({ params }: { params: Promise<
         <p className="lead">{item.description}</p>
         <div className="button-row"><Link className="button" href="/iletisim#teklif">Teklif Al</Link><a className="button button-outline" href={site.phoneHref}>{site.phoneDisplay}</a></div>
       </div>
-      <div className="page-hero-image"><Image src={assetPath(item.image)} alt={item.imageAlt} fill priority fetchPriority="high" sizes="(max-width: 1080px) 96vw, (max-width: 1300px) 40vw, 470px" /></div>
+      <div className="page-hero-image"><Image src={assetPath(item.image)} alt={altOf(item.image)} fill priority fetchPriority="high" sizes="(max-width: 1080px) 96vw, (max-width: 1300px) 40vw, 470px" /></div>
     </div></header>
 
     <div className="section"><div className="container product-detail">

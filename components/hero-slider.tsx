@@ -2,15 +2,15 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { altOf } from "@/lib/images";
+import { heroSlideImages } from "@/lib/showcase";
 import { assetPath } from "@/lib/site";
 
-const slides = [
-  { src: "/images/visual-v3/facade-led.webp", alt: "Bina cephesine bütünleşik büyük dış mekân LED ekran" },
-  { src: "/images/visual-v3/auditorium-led.webp", alt: "Kurumsal sunum alanındaki geniş iç mekân LED video duvarı" },
-  { src: "/images/visual-v3/mall-led.webp", alt: "AVM ortak alanında mimariye uyarlanan LED ekran" },
-  { src: "/images/visual-v3/retail-led.webp", alt: "Mağaza içinde geniş formatlı LED ekran yüzeyi" },
-  { src: "/images/visual-v3/totem-led.webp", alt: "Açık alanda bağımsız dikey LED totem" },
-] as const;
+const slides = heroSlideImages.map((src) => ({ src, alt: altOf(src) }));
+
+// Ertelenen slaytlarda `src` yerine kullanılan 1×1 saydam GIF. next/image `data:`
+// kaynaklarını otomatik `unoptimized` sayar: srcset üretilmez, ağ isteği çıkmaz.
+const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 export function HeroSlider() {
   const [active, setActive] = useState(0);
@@ -18,8 +18,11 @@ export function HeroSlider() {
   // Slaytlar üst üste konumlandığı için tarayıcı, `loading="lazy"` olsalar bile
   // 2-5. görselleri "görünür alanda" sayıp ilk boyamayla birlikte indiriyordu:
   // ~420 KB, doğrudan LCP görseliyle bant genişliği yarışında. Bu yüzden ilk kare
-  // dışındaki slaytlar `load` sonrası boş zamana kadar DOM'a hiç girmez. İlk kare
-  // zaten 6 sn boyunca ekranda kaldığından görünen davranış değişmez.
+  // dışındaki slaytların KAYNAĞI `load` sonrası boş zamana kadar verilmez; `<img>`
+  // etiketleri alt metinleriyle birlikte sunucuda basılır (statik HTML'de beşinin de
+  // alt metni bulunur). İlk kare zaten 6 sn ekranda kaldığından görünen davranış
+  // değişmez. Pasif slaytlar alt metinlerini taşısa da sarmalayıcıları
+  // `aria-hidden` olduğu için ekran okuyucu yalnız aktif slaytı seslendirir.
   const [deferredReady, setDeferredReady] = useState(false);
   const interacted = useRef(false);
   const move = useCallback((direction: number) => {
@@ -55,7 +58,7 @@ export function HeroSlider() {
 
   return <div className="hero-slider" aria-roledescription="carousel" aria-label="LED ekran kullanım alanları" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
     <div className="hero-slider-track">{slides.map((slide, index) => <div className={`hero-slide ${index === active ? "is-active" : ""}`} aria-hidden={index !== active} key={slide.src}>
-      {(index === 0 || deferredReady) && <Image src={assetPath(slide.src)} alt={index === active ? slide.alt : ""} fill priority={index === 0} fetchPriority={index === 0 ? "high" : "auto"} loading={index === 0 ? "eager" : "lazy"} sizes="(max-width: 900px) 96vw, (max-width: 1300px) 40vw, 470px" />}
+      <Image src={index === 0 || deferredReady ? assetPath(slide.src) : TRANSPARENT_PIXEL} alt={slide.alt} fill priority={index === 0} fetchPriority={index === 0 ? "high" : "auto"} loading={index === 0 ? "eager" : "lazy"} sizes="(max-width: 900px) 96vw, (max-width: 1300px) 40vw, 470px" />
     </div>)}</div>
     <div className="hero-slider-controls"><button type="button" onClick={() => move(-1)} aria-label="Önceki görsel">←</button><div>{slides.map((slide, index) => <button type="button" className={index === active ? "is-active" : ""} aria-label={`${index + 1}. görseli göster`} aria-current={index === active ? "true" : undefined} onClick={() => { interacted.current = true; setDeferredReady(true); setActive(index); }} key={slide.src} />)}</div><button type="button" onClick={() => move(1)} aria-label="Sonraki görsel">→</button></div>
   </div>;
