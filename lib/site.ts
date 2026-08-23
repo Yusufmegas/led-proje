@@ -39,7 +39,13 @@ export function absoluteUrl(path = "/") {
 // absoluteUrl() sayfa URL'leri içindir ve trailingSlash uyumu için sona slash ekler;
 // bir dosya yolunda bu dosya adını bozar (/images/x.webp/). Sitemap görsel uzantısı
 // mutlak varlık URL'lerini bu yüzden ayrı üretir.
+//
+// assetPath() BURADA UYGULANMAZ: GitHub Pages önizlemesinde NEXT_PUBLIC_SITE_URL
+// zaten basePath'i içerir (https://…/led-proje), dolayısıyla bir kez daha eklemek
+// yolu /led-proje/led-proje/… haline getirir. absoluteUrl() de aynı nedenle ham
+// yolu ekler.
 export function absoluteAssetUrl(path: string) {
-  return `${site.url.replace(/\/+$/, "")}${assetPath(path)}`;
+  const base = site.url.replace(/\/+$/, "");
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
 export function whatsappUrl(message: string) { return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`; }
