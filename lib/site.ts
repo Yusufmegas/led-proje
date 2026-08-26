@@ -24,6 +24,18 @@ export const site = {
   location: "İstanbul",
   serviceArea: "İstanbul · Türkiye geneli proje hizmeti",
   mapsUrl: "https://maps.app.goo.gl/dKe4WDH9pGhuh9se7",
+  address: {
+    street: "Demirciler Sitesi 1. Cd. No:1",
+    district: "Seyitnizam",
+    postalCode: "34015",
+    locality: "Zeytinburnu",
+    region: "İstanbul",
+  },
+  addressShort: "Demirciler Sitesi 1. Cd. No:1, Zeytinburnu / İstanbul",
+  addressFull: "Demirciler Sitesi 1. Cd. No:1, Seyitnizam, 34015 Zeytinburnu / İstanbul",
+  openingDays: "Pazartesi – Pazar",
+  opensAt: "08:30",
+  closesAt: "18:00",
   description: "Türkiye genelinde profesyonel LED ekran sistemleri için projelendirme, sistem entegrasyonu, montaj, devreye alma ve teknik servis.",
 } as const;
 // next.config.ts `trailingSlash: true` kullandığı için canonical, sitemap ve JSON-LD
@@ -48,4 +60,42 @@ export function absoluteAssetUrl(path: string) {
   const base = site.url.replace(/\/+$/, "");
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
-export function whatsappUrl(message: string) { return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`; }
+
+// WhatsApp butonları düz bir "merhaba" mesajıyla açıldığı için gelen her görüşmede
+// ölçü, ortam ve zaman bilgisi tek tek sorulmak zorunda kalıyordu. Tüm butonlar artık
+// aynı ön doldurulmuş brief şablonunu açar: call site'ın bildiği alanlar (şehir, ölçü,
+// form yanıtları) parantezli placeholder'ın yerine geçer, kalanını müşteri doldurur.
+export type WhatsappInquiry = {
+  city?: string;        // 📍 satırında ortamın önüne eklenir
+  usage?: string;       // 📍 Kullanım yeri
+  size?: string;        // 📐 Ekran boyutu
+  application?: string; // 🏢 Uygulama tipi
+  timing?: string;      // 📅 Proje zamanı
+  phone?: string;       // 📞 Telefon
+  name?: string;        // 📞 satırında numaranın ardına parantezle eklenir
+  notes?: string;       // Ek notlar
+};
+
+export function whatsappMessage(inquiry: WhatsappInquiry = {}) {
+  const usage = [inquiry.city, inquiry.usage || "(İç mekan / Dış mekan)"].filter(Boolean).join(" · ");
+  const phone = [inquiry.phone, inquiry.name && `(${inquiry.name})`].filter(Boolean).join(" ");
+  const lines = [
+    "Merhaba, LEDProje hakkında bilgi almak istiyorum.",
+    "",
+    `📍 Kullanım yeri: ${usage}`,
+    `📐 Ekran boyutu: ${inquiry.size || "(En × Boy metre veya tahmini alan)"}`,
+    `🏢 Uygulama tipi: ${inquiry.application || "(Mağaza / AVM / Bina cephesi / Totem / Diğer)"}`,
+    `📅 Proje zamanı: ${inquiry.timing || "(Acil / 1-3 ay / Planlama aşamasında)"}`,
+  ];
+  // Telefon ve Ek notlar yalnız değerleri varsa yazılır: boş bırakılan satırlar
+  // müşteriye doldurulacak alan gibi görünüp mesajı gereksiz uzatıyordu.
+  if (phone) lines.push(`📞 Telefon: ${phone}`);
+  if (inquiry.notes) lines.push("", `Ek notlar: ${inquiry.notes}`);
+  return lines.join("\n");
+}
+
+// Metin ?text= içinde taşındığı için satır sonları ve emoji encodeURIComponent ile
+// kaçırılmalıdır; ham gönderildiğinde WhatsApp şablonu tek satıra düşürür.
+export function whatsappUrl(inquiry: WhatsappInquiry = {}) {
+  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(whatsappMessage(inquiry))}`;
+}

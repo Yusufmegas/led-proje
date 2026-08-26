@@ -14,7 +14,7 @@ function SolutionsMenu() {
 
 export function Header() {
   return <header className="site-header">
-    <div className="utility"><div className="container"><span>{site.serviceArea}</span><a href={site.phoneHref}>{site.phoneDisplay}</a></div></div>
+    <div className="utility"><div className="container"><span>Müşteri Hizmetleri</span><a href={site.phoneHref}>{site.phoneDisplay}</a></div></div>
     <div className="container header-row">
       <BrandMark />
       <nav className="desktop-nav" aria-label="Ana navigasyon">

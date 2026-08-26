@@ -15,16 +15,18 @@ export function QuoteForm() {
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const message = [
-      "Merhaba LEDProje,",
-      `${data.get("city")} için ${data.get("environment")} LED ekran projem var.`,
-      `Kullanım alanı: ${data.get("use")}.`,
-      `İletişim: ${data.get("name")} - ${data.get("phone")}.`,
-      data.get("message") ? `Not: ${data.get("message")}` : "",
-      "Teklif almak istiyorum.",
-    ].filter(Boolean).join("\n");
+    const field = (key: string) => String(data.get(key) ?? "").trim();
     trackEvent("lead_form_submit", { channel: "whatsapp" });
-    window.open(whatsappUrl(message), "_blank", "noopener,noreferrer");
+    // Form yanıtları ortak WhatsApp şablonunun ilgili satırlarına yazılır; form
+    // sormadığı için ölçü ve proje zamanı placeholder olarak kalır.
+    window.open(whatsappUrl({
+      city: field("city"),
+      usage: field("environment"),
+      application: field("use"),
+      phone: field("phone"),
+      name: field("name"),
+      notes: field("message"),
+    }), "_blank", "noopener,noreferrer");
   };
 
   return <form className="form-shell" onSubmit={submit} onFocus={start}>

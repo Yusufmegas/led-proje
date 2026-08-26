@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" width="160" height="96" role="img" aria-label="CE uygunluk işareti">
+  <title>CE uygunluk işareti</title>
+  <rect x="1.5" y="1.5" width="157" height="93" rx="9" fill="#ffffff" stroke="#dbe3ee" stroke-width="2"/>
+  <path d="M 70.4 31.9 A 18 18 0 1 0 70.4 56.1" fill="none" stroke="#003399" stroke-width="7"/><path d="M 114.4 31.9 A 18 18 0 1 0 114.4 56.1" fill="none" stroke="#003399" stroke-width="7"/><rect x="86" y="40.5" width="33" height="7" fill="#003399"/><rect x="56" y="80" width="48" height="4" rx="2" fill="#ffcc00"/>
+</svg>

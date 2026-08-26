@@ -71,6 +71,22 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         telephone: site.phoneInternational,
         parentOrganization: { "@id": orgId },
         areaServed: { "@type": "Country", name: "Türkiye" },
+        // Google, LocalBusiness için fiziksel adres bekler; adres ve saatler
+        // footer/iletişim sayfasıyla aynı sabitlerden gelir (lib/site.ts).
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: `${site.address.street}, ${site.address.district}`,
+          addressLocality: site.address.locality,
+          addressRegion: site.address.region,
+          postalCode: site.address.postalCode,
+          addressCountry: "TR",
+        },
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          opens: site.opensAt,
+          closes: site.closesAt,
+        },
       },
     ],
   };

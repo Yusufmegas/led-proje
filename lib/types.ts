@@ -19,6 +19,8 @@ export type SeoPage = {
   eyebrow: string;
   h1: string;
   intro: string;
+  /** Hero butonlarının hemen üstünde çıkan çağrı metni; verilmezse satır hiç basılmaz. */
+  ctaNote?: string;
   primaryQuery: string;
   kind: "product" | "solution" | "service" | "technical" | "city" | "corporate" | "hub";
   index: boolean;

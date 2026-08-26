@@ -33,13 +33,13 @@ const imageAlts: Record<string, string> = {
   "/images/visual-v7/arena-led.webp": "Spor arenasında tribün görüşüne göre planlanmış iç mekân LED ekran yerleşimi",
   "/images/visual-v7/stage-led.webp": "Sahne arkasını kaplayan geniş iç mekân LED ekran görüntü yüzeyi",
   // Standart rozetleri. Bunlar fotoğraf değil, scripts/build-certification-badges.mjs
-  // ile çizilen tipografik rozetlerdir; alt metni de rozeti tarif eder.
-  "/images/certifications/ce-logo.svg": "LED ekran ürünlerinde CE uygunluk işaretini gösteren standart rozeti",
-  "/images/certifications/iso-9001-logo.svg": "LED ekran üretiminde ISO 9001:2015 kalite yönetim sistemi belgesi rozeti",
-  "/images/certifications/tse-logo.svg": "LED ekran ürünleri için TSE uygunluk belgesini gösteren standart rozeti",
-  "/images/certifications/rohs-logo.svg": "LED ekran bileşenlerinde RoHS tehlikeli madde kısıtlamasına uygunluk rozeti",
-  "/images/certifications/emc-logo.svg": "LED ekran sistemlerinde EMC elektromanyetik uyumluluk standardını gösteren rozet",
-  "/images/certifications/ip65-badge.svg": "Dış mekân LED ekranlarda IP65 ve IP54 koruma sınıfını gösteren rozet",
+  // ile çizilen işaretlerdir; alt metni rozetin temsil ettiği belgeyi adlandırır.
+  "/images/standards/ce.svg": "CE uygunluk işareti",
+  "/images/standards/iso9001.svg": "ISO 9001:2015 belgesi",
+  "/images/standards/tse.svg": "TSE belgesi",
+  "/images/standards/rohs.svg": "RoHS uygunluk",
+  "/images/standards/emc.svg": "EMC uygunluk",
+  "/images/standards/ip65.svg": "IP65 koruma sınıfı",
 };
 
 export function altOf(src: string): string {

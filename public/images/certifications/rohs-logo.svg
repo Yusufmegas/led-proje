@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" width="160" height="96" role="img" aria-label="RoHS tehlikeli madde kısıtlamasına uygunluk">
-  <title>RoHS tehlikeli madde kısıtlamasına uygunluk</title>
-  <rect x="1.5" y="1.5" width="157" height="93" rx="9" fill="#ffffff" stroke="#dbe3ee" stroke-width="2"/>
-  <text x="80" y="56" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" letter-spacing="0.5" fill="#0b1528">RoHS</text>
-  <rect x="60" y="80" width="40" height="3" rx="1.5" fill="#b35600"/>
-</svg>

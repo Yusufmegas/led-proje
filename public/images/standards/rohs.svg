@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" width="160" height="96" role="img" aria-label="RoHS uygunluk">
+  <title>RoHS uygunluk</title>
+  <rect x="1.5" y="1.5" width="157" height="93" rx="9" fill="#ffffff" stroke="#dbe3ee" stroke-width="2"/>
+  <path d="M 24 48 L 34 58 L 50 36" fill="none" stroke="#1b6b2f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><text x="106" y="57" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="0.5" fill="#1b6b2f">RoHS</text><rect x="56" y="80" width="48" height="4" rx="2" fill="#1b6b2f"/>
+</svg>
