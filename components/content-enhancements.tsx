@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ProjectShowcase } from "@/components/project-showcase";
+import { QuoteCta } from "@/components/quote-cta";
 import type { SeoPage } from "@/lib/types";
 import { altOf } from "@/lib/images";
 import { getProjectShowcaseData, getReferenceShowcaseData } from "@/lib/sector-projects";
@@ -28,8 +29,45 @@ const technicalTopics = [
   ["Bakım ve teknik servis", "Arıza kaynağı modül, güç, veri, kontrol ve bağlantı katmanları birlikte incelenerek belirlenir."],
 ] as const;
 
+// /projeler sektör kartları. İkonlar scripts/build-sector-icons.mjs ile üretilir ve
+// dekoratiftir (alt=""): kartın erişilebilir adını h3 içindeki bağlantı taşır, ikona
+// ayrıca alt verilmesi ekran okuyucuda bağlantı adını gereksiz uzatırdı.
+const projectSectors = [
+  ["Mağaza ve Perakende", "/magaza-led-ekran", "magaza.svg", "Vitrin, reyon arası ve kasa önü LED ekran çözümleri."],
+  ["AVM ve Ortak Alanlar", "/avm-led-ekran", "bina.svg", "Atriyum, giriş ve ortak alan büyük yüzey LED ekranlar."],
+  ["Bina Cephesi", "/dis-cephe-led-ekran", "dis-cephe.svg", "Mimari entegreli dış cephe ve reklam yüzeyi LED ekranlar."],
+  ["Totem ve Dikey Ekran", "/totem-led-ekran", "totem.svg", "Açık alan ve iç mekân totem LED ekran sistemleri."],
+  ["Spor Alanı ve Arena", "/led-ekranlar", "spor.svg", "Skor ekranı, tribün şeridi ve arena LED yüzey sistemleri."],
+  ["Otel ve Kurumsal", "/ic-mekan-led-ekran", "bina.svg", "Lobi, toplantı salonu ve konferans alanı LED ekran çözümleri."],
+] as const;
+
+// Numaralandırma .process sınıfının CSS counter'ıyla yapılır, işaretlemede yoktur.
+const projectProcess = [
+  ["Teknik Keşif", "Kurulum alanı, ekran boyutu ve teknik gereksinimler yerinde belirlenir."],
+  ["Projelendirme", "Ekran tipi, piksel aralığı ve montaj sistemi projeye özel tasarlanır."],
+  ["Üretim", "Kabinet, elektronik ve yazılım bileşenleri kendi tesisimizde üretilir."],
+  ["Montaj ve Devreye Alma", "Saha ekibimiz kurulum, kablo ve kontrol sistemini devreye alır."],
+  ["Teknik Servis", "Uzaktan izleme ve yerinde müdahale ile 2 yıl garanti kapsamında destek sağlanır."],
+] as const;
+
 export function ContentEnhancements({ page }: { page: SeoPage }) {
-  if (page.slug === "projeler") return <ProjectShowcase projects={getProjectShowcaseData()} references={getReferenceShowcaseData()} />;
+  if (page.slug === "projeler") return <>
+    <section className="module-heading" aria-labelledby="sectors-title">
+      <h2 id="sectors-title">Çözüm Ürettiğimiz Sektörler</h2>
+      <p>180+ tamamlanan projemizde yer alan sektörler ve uygulama alanları.</p>
+    </section>
+    <div className="use-grid">{projectSectors.map(([title, href, icon, text]) => <article key={title}>
+      <Image src={assetPath(`/images/sectors/${icon}`)} alt="" width={48} height={48} loading="lazy" unoptimized />
+      <h3><Link className="text-link" href={href}>{title}</Link></h3>
+      <p>{text}</p>
+    </article>)}</div>
+    <section className="module-heading" aria-labelledby="process-title">
+      <h2 id="process-title">Projelerinizde Nasıl Çalışıyoruz?</h2>
+    </section>
+    <div className="process">{projectProcess.map(([title, text]) => <div key={title}><b>{title}</b><span>{text}</span></div>)}</div>
+    <ProjectShowcase projects={getProjectShowcaseData()} references={getReferenceShowcaseData()} />
+    <QuoteCta title="Referans Proje Görmek İster Misiniz?" description="180+ tamamlanmış projemize ait görsel ve teknik detayları görüşme sırasında paylaşıyoruz. Projenizi birlikte değerlendirelim." />
+  </>;
   if (page.slug === "teknik-bilgi") return <section className="knowledge-center" aria-labelledby="knowledge-title"><div className="module-heading"><span className="eyebrow">Teknik bilgi merkezi</span><h2 id="knowledge-title">Doğru sistem kararını oluşturan konular</h2><p>Değerler ürün, üretici dokümanı ve proje koşullarına göre doğrulanır; aşağıdaki başlıklar karar çerçevesini açıklar.</p></div><nav className="knowledge-nav" aria-label="Teknik bilgi konuları">{technicalTopics.map(([title], i) => <a key={title} href={`#teknik-${i + 1}`}>{title}</a>)}</nav><div className="knowledge-grid">{technicalTopics.map(([title, text], i) => <article id={`teknik-${i + 1}`} key={title}><span>{String(i + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{text}</p></article>)}</div><div className="module-actions"><Link className="text-link" href="/led-ekranlar">Ürün ailelerini inceleyin →</Link><Link className="text-link" href="/p2-5-led-ekran">P2.5 rehberi →</Link><Link className="text-link" href="/p4-led-ekran">P4 rehberi →</Link><Link className="text-link" href="/p5-led-ekran">P5 rehberi →</Link><Link className="text-link" href="/p10-led-ekran">P10 rehberi →</Link><Link className="text-link" href="/led-ekran-kesif-projelendirme">Keşif sürecini inceleyin →</Link></div></section>;
   if (page.slug === "led-ekran-kesif-projelendirme") {
     const steps = ["İhtiyaç ve kullanım alanı", "İzleme mesafesi ve piksel aralığı", "Ölçü ve yerleşim", "Taşıyıcı yüzey", "Güç ve veri altyapısı", "İçerik kaynağı", "Ortam koşulları", "Teknik proje çıktıları"];
